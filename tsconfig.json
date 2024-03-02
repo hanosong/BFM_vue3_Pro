@@ -4,11 +4,13 @@
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     "baseUrl": ".",
+    // 这个路径提示是给vscode提示的，不是用于打包的
     "paths": {
       "@/*": ["./src/*"]
     }
   },
 
+  // tsconfig.json不建议修改，如果要修改去tsconfig.config.json文件中
   "references": [
     {
       "path": "./tsconfig.config.json"

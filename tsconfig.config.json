@@ -1,9 +1,11 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.node.json",
+  // 为vite环境如何编译ts做定义
+  "extends": "@vue/tsconfig/tsconfig.node.json", // tsconfig.node.json => node环境， 用于SSR的
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
   "compilerOptions": {
     "module": "ESNext", 
-    "composite": true,
-    "types": ["node"]
+    "ignoreDeprecations": "5.0",
+    "composite": true, // 合并：最终合并为tsconfig.json
+    "types": ["node"] // 有可能基于node环境运行
   }
 }
