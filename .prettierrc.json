@@ -1,8 +1,8 @@
 {
-  "useTabs": false,
+  "useTabs": false, // 不使用tab缩进，使用空格缩进
   "tabWidth": 2,
-  "printWidth": 80,
-  "singleQuote": true,
-  "trailingComma": "none",
-  "semi": false
+  "printWidth": 80, // 每行最大字符数 100， 120 也比较场见（大屏）
+  "singleQuote": true, // 使用单引号
+  "trailingComma": "none", // 对象尾部的属性是否添加逗号
+  "semi": false // 语句末尾是否加分号
 }
