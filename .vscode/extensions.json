@@ -1,0 +1,4 @@
+{
+  // vscode 会自动读取这两个插件，如果没有安装，会在右下角弹出小弹窗提示安装
+  "recommendations": ["Vue.volar", "Vue.vscode-typescript-vue-plugin"]
+}
