@@ -7,7 +7,8 @@
     // 这个路径提示是给vscode提示的，不是用于打包的
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noImplicitAny": false, // 允许隐式的 any 类型，即 TypeScript 编译器不会强制要求对所有变量进行显式的类型注解，而是允许它们被推断为 any 类型
   },
 
   // tsconfig.json不建议修改，如果要修改去tsconfig.config.json文件中

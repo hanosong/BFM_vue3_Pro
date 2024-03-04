@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 
+// 参数1： id
+// 参数2：对象
 const useCounterStore = defineStore('counter', {
   state: () => ({
     counter: 100

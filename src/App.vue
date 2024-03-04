@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <h2>App</h2>
-    <router-link to="/main">主要</router-link>
-    <router-link to="/login">登录</router-link>
-    <router-view></router-view>
+    <RouterLink to="/main">主要</RouterLink>
+    <RouterLink to="/login">登录</RouterLink>
+    <RouterView></RouterView>
   </div>
 </template>
 
@@ -19,3 +19,7 @@ console.log(ikun)
 </script>
 
 <style scoped></style>
+import type { RouterLink } from 'vue-router';
+
+import type { RouterView } from 'vue-router';
+
