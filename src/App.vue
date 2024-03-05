@@ -1,8 +1,5 @@
 <template>
   <div class="app">
-    <h2>App</h2>
-    <RouterLink to="/main">主要</RouterLink>
-    <RouterLink to="/login">登录</RouterLink>
     <RouterView></RouterView>
   </div>
 </template>
@@ -18,8 +15,9 @@ const ikun: IKun = {
 console.log(ikun)
 </script>
 
-<style scoped></style>
-import type { RouterLink } from 'vue-router';
-
-import type { RouterView } from 'vue-router';
-
+<style scoped>
+.app {
+  height: 100vh;
+  width: 100vw;
+}
+</style>
