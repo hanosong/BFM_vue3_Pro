@@ -11,76 +11,27 @@
     el-menu-item-group： 对子菜单进行分组，但是不能展开（目的是给小菜单加上分组名称，不可交互）
     el-menu-item： 每个小菜单
    -->
-    <el-menu active-text-color="#fff" text-color="#b7bdc3"  background-color="#001529">
-      <el-sub-menu>
-        <template #title>
-          <el-icon>
-            <Odometer />
-          </el-icon>
-          <span>系统总览</span>
-        </template>
-        <el-menu-item>
-          核心技术
-        </el-menu-item>
-        <el-menu-item>
-          商品统计
-        </el-menu-item>
-      </el-sub-menu>
+    <el-menu
+      active-text-color="#fff"
+      text-color="#b7bdc3"
+      background-color="#001529"
+    >
+      <!-- 遍历整个菜单 -->
+      <template v-for="item in userMenus" :key="item.id">
+        <el-sub-menu :index="+item.id">
+          <template #title>
+            <!-- 将字符串：el-icon-monitor => 组件 使用：component 动态组件 -->
+            <el-icon>
+              <component :is="item.icon.split(' el-icon')[1]" />
+            </el-icon>
+            <span>{{ item.name }}</span>
+          </template>
 
-      <el-sub-menu>
-
-        <template #title>
-          <el-icon>
-            <Odometer />
-          </el-icon>
-          <span>系统检测</span>
-        </template>
-        <el-menu-item>
-          用户管理
-        </el-menu-item>
-        <el-menu-item>
-          部门管理
-        </el-menu-item>
-        <el-menu-item>
-          菜单管理
-        </el-menu-item>
-        <el-menu-item>
-          角色管理
-        </el-menu-item>
-      </el-sub-menu>
-
-      <el-sub-menu>
-
-        <template #title>
-          <el-icon>
-            <Odometer />
-          </el-icon>
-          <span>商品中心</span>
-        </template>
-        <el-menu-item>
-          商品类别
-        </el-menu-item>
-        <el-menu-item>
-          商品信息
-        </el-menu-item>
-      </el-sub-menu>
-
-      <el-sub-menu>
-
-        <template #title>
-          <el-icon>
-            <Odometer />
-          </el-icon>
-          <span>随便聊聊</span>
-        </template>
-        <el-menu-item>
-          你的故事
-        </el-menu-item>
-        <el-menu-item>
-          故事列表
-        </el-menu-item>
-      </el-sub-menu>
-
+          <template v-for="subitem in item.children" :key="subitem.id">
+            <el-menu-item :index="+item.id">{{ subitem.name }}</el-menu-item>
+          </template>
+        </el-sub-menu>
+      </template>
     </el-menu>
   </div>
 </template>
@@ -93,7 +44,8 @@ const logImgSrc = ref(imgSrc)
 
 // 1.获取动态菜单
 const loginStore = useLoginStore();
-const userMenu = loginStore.userMenu;
+const userMenus = loginStore.userMenus;
+console.log(userMenus, "userMenus")
 </script>
 
 <style lang="less" scoped>
