@@ -1,24 +1,43 @@
+enum CacheType {
+  Local,
+  Session
+}
+
 class Cache {
+  storage: Storage
+
+  constructor(type: CacheType){
+    this.storage = type === CacheType.Local
+      ? localStorage
+      : sessionStorage
+  }
+
   setCache(key: string, value: any){
     if(value){
-      localStorage.setItem(key, JSON.stringify(value))
+      this.storage.setItem(key, JSON.stringify(value))
     }
   }
 
   getCache(key: string){
-    const val = localStorage.getItem(key);
+    const val = this.storage.getItem(key);
     if(val){
       return JSON.parse(val)
     }
   }
 
   removeCache(key: string){
-    localStorage.removeItem(key)
+    this.storage.removeItem(key)
   }
 
   clear(){
-    localStorage.clear()
+    this.storage.clear()
   }
 }
 
-export default new Cache()
+const localCache = new Cache(CacheType.Local)
+const sessionCache = new Cache(CacheType.Session)
+
+export {
+  localCache,
+  sessionCache,
+}
