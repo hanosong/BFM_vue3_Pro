@@ -18,10 +18,14 @@ import {ElMessage} from "element-plus" // template中的才会自动导入
 import type { FormRules, ElForm } from "element-plus"
 import useLoginStore from "@/store/login/login"
 import type { IAccount } from '@/types'
+import { localCache } from "@/utils/cache";
+
+const CACHE_NAME = 'name';
+const CACHE_PASSWORD = 'password'
 
 const account = reactive<IAccount>({
-  name: '',
-  password: ''
+  name: localCache.getCache(CACHE_NAME) ?? '',
+  password: localCache.getCache(CACHE_PASSWORD) ?? ''
 })
 const accountRules: FormRules = {
   name: [
@@ -43,7 +47,7 @@ const accountRules: FormRules = {
 }
 const formRef = ref<InstanceType <typeof ElForm>>()
   const loginStore = useLoginStore()
-const loginAction = () => {
+const loginAction = (isRemPwd: boolean) => {
   formRef.value?.validate(valid => {
     if(!valid){
       ElMessage({
@@ -54,7 +58,15 @@ const loginAction = () => {
     }
     const {name,password} = account;
     // 登录并保存用户信息
-    loginStore.loginAccountAction({name, password});
+    loginStore.loginAccountAction({name, password}).then(() => {
+      if(isRemPwd.value){
+        localCache.setCache(CACHE_NAME, name)
+        localCache.setCache(CACHE_PASSWORD, password)
+      }else {
+        localCache.removeCache(CACHE_NAME)
+        localCache.removeCache(CACHE_PASSWORD)
+      }
+    });
 
   })
 }

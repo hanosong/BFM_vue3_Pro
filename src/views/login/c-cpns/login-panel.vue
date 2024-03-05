@@ -34,18 +34,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import PaneAccount from "./pane-account.vue"
 import PanePhone from "./pane-phone.vue"
-const isRememberPassWord = ref(true); // ref（）=> () 小括号可以传泛型
+import { localCache } from "@/utils/cache";
+
+const isRememberPassWord = ref<boolean>(localCache.getCache('isRememberPassWord') ?? true); // ref（）=> () 小括号可以传泛型
 const activeName = ref<string>("account");
+
+// 记录用户是否选择记住密码
+watch(isRememberPassWord, (newVal) => {
+  localCache.setCache('isRememberPassWord', newVal)
+})
+
 // 获取 PaneAccount 的实例类型；InstanceType => 获取构造器PaneAccount的返回值
 // PaneAccount 是构造器，可以创建很多个<pane-account/> 实例
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
 const loginHandle = () => {
   if(activeName.value === "account"){
     // 账号登录
-    accountRef.value?.loginAction()
+    accountRef.value?.loginAction(isRememberPassWord)
   }else{
     // 手机登录
     console.log("用户进行手机登录")
