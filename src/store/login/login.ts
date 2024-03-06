@@ -2,9 +2,9 @@ import {defineStore} from "pinia"
 import accountLoginRequest, { getUserInfoById, getUserMenusByRoleId } from "@/service/login/login"
 import type { IAccount } from '@/types'
 import { localCache } from "@/utils/cache";
+import {mapMenusToRoutes} from "@/utils/map-menus"
 import router from "@/router";
 import { LOGIN_TOKEN } from "@/global/constants";
-import type { RouteRecordRaw } from "vue-router";
 interface ILoginState {
   token: string
   userInfo: any /* {
@@ -43,35 +43,9 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('userInfo', userInfo)
       localCache.setCache('userMenus',  userMenusRes.data)
 
-      // 页面跳转前要动态的添加路由
-      // 1. 获取菜单 usermenus
-      // 2. 动态获取所有的路由对象，放在数组中，
-      //  路由对象都是在独立的文件中的
-      //  从文件中将所有的路由对象读取到数组中
-      // 3. 根据菜单去匹配正确的路由 router.addRoute()
-
-      const localRoutes:RouteRecordRaw[] = [] // RouteRecordRaw router类型
-      // 1.1 读取router/main 所有的ts文件 webpack中叫require.context()
-      // ** => 匹配所有子目录； 如果不写**，则只会加载main下面的直接文件
-      const files:Record<string, any> = import.meta.glob('../../router/main/**/*.ts', {
-        eager: true
-      }) // 如果不写eager则返回一个函数(类似懒加载)； 写了eager则返回每个模块的信息
-
-      for(const key in files) {
-        const module = files[key];
-        // console.log(module, "module")
-        localRoutes.push(module.default);
-      }
-
-      // 所有的路由和根据菜单的路由进行取交集
-      for(const menu of this.userMenus) {
-        console.log("menu: ", menu);
-        for(const submenu of menu.children){
-          const route = localRoutes.find(item => item.path === submenu.url)
-          if(route) router.addRoute('main', route)
-        }
-      }
-
+      // 动态添加路由
+      const routes = mapMenusToRoutes(this.userMenus)
+      routes.forEach(route => router.addRoute('main', route))
 
       // 页面跳转 main
       router.push("/main")

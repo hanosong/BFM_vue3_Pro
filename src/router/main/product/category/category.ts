@@ -1,7 +1,7 @@
-const menu = () => import('@/views/main/product/category/menu.vue')
+const category = () => import('@/views/main/product/category/category.vue')
 export default {
   path: '/main/product/category',
-  name: 'menu',
-  component: menu,
+  name: 'category',
+  component: category,
   children: []
 }
