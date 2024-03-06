@@ -12,23 +12,24 @@
     el-menu-item： 每个小菜单
    -->
     <el-menu
+      default-active="3"
       active-text-color="#fff"
       text-color="#b7bdc3"
       background-color="#001529"
     >
       <!-- 遍历整个菜单 -->
       <template v-for="item in userMenus" :key="item.id">
-        <el-sub-menu :index="+item.id">
+        <el-sub-menu :index="item.id + '' ">
           <template #title>
             <!-- 将字符串：el-icon-monitor => 组件 使用：component 动态组件 -->
             <el-icon>
-              <component :is="item.icon.split(' el-icon')[1]" />
+              <component :is="item.icon.split('-icon-')[1]" />
             </el-icon>
             <span>{{ item.name }}</span>
           </template>
 
           <template v-for="subitem in item.children" :key="subitem.id">
-            <el-menu-item :index="+item.id">{{ subitem.name }}</el-menu-item>
+            <el-menu-item :index="subitem.id + ''">{{ subitem.name }}</el-menu-item>
           </template>
         </el-sub-menu>
       </template>
@@ -48,8 +49,7 @@ const userMenus = loginStore.userMenus;
 console.log(userMenus, "userMenus")
 </script>
 
-<style lang="less" scoped>
-.main-menu {
+<style lang="less" scoped>.main-menu {
   height: 100%;
   background-color: #001529;
 }
