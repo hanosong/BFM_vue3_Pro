@@ -10,15 +10,14 @@
       <div class="breadcrumb">
        面包屑
       </div>
-      <div class="info">
-          个人信息
-        </div>
+     <header-info></header-info>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {ref} from 'vue'
+import HeaderInfo from './c-cpns/header-info.vue'
 const isFold = ref(false); // 默认图标为展开状态
 const emit = defineEmits(["foldChange"]) // 自定义事件
 const handleMenuIconClick = () => {

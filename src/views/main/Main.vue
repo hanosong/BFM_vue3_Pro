@@ -8,7 +8,10 @@
         <el-header>
           <main-header @fold-change="handleFoldChange"/>
         </el-header>
-        <el-main>Main</el-main>
+        <!-- 使用动态路由作为main的内容 -->
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
