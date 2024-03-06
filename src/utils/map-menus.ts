@@ -16,6 +16,8 @@ function loadLocalRoutes () {
   return localRoutes
 }
 
+export let firstMenu: any = null; // 第一次进入页面的时候，应该进入menu的第一个菜单里
+
 export function mapMenusToRoutes(userMenus: any[]) {
       // 页面跳转前要动态的添加路由
       // 1. 获取菜单 usermenus
@@ -35,7 +37,22 @@ export function mapMenusToRoutes(userMenus: any[]) {
         for(const submenu of menu.children){
           const route = localRoutes.find(item => item.path === submenu.url)
           if(route) routes.push(route)
+          if(!firstMenu && route) firstMenu = submenu;
         }
       }
       return routes
+}
+
+/**
+ * @param path 要匹配的路径
+ * @param userMenus 所有的菜单
+ */
+export function mapPathToMenu(path: string, userMenus: any[]) {
+  for(const menu of userMenus){
+    for(const submenu of menu.children){
+      if(submenu.url === path){
+        return submenu
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { LOGIN_TOKEN } from "@/global/constants";
 import { localCache } from '@/utils/cache';
-
+import {firstMenu} from "@/utils/map-menus"
 const router = createRouter({
   history: createWebHashHistory(),
   // 映射关系: path => component
@@ -90,5 +90,9 @@ router.beforeEach((to, from) => {
     return '/login'
   }
 
+  // 如果进入的是main页面
+  if(to.path === '/main'){
+    return firstMenu?.url
+  }
 })
 export default router

@@ -12,7 +12,7 @@
     el-menu-item： 每个小菜单
    -->
     <el-menu
-      default-active="3"
+      :default-active="defaultActive"
       :collapse="isFold"
       active-text-color="#fff"
       text-color="#b7bdc3"
@@ -42,7 +42,8 @@
 import { ref, watch } from 'vue'
 import useLoginStore from '@/store/login/login'
 import imgSrc from "@/assets/img/logo.svg"
-import {useRouter} from "vue-router"
+import {useRouter, useRoute} from "vue-router"
+import {firstMenu, mapPathToMenu} from "@/utils/map-menus"
 const logImgSrc = ref(imgSrc)
 
 defineProps({
@@ -62,6 +63,11 @@ const handleItemClick = (item: any) => {
   const url = item.url;
   router.push(url);
 }
+
+// Elmenu 的默认选中的菜单
+const route = useRoute();
+const path = mapPathToMenu(route.path, userMenus)
+const defaultActive = ref(path.id + '')
 </script>
 
 <style lang="less" scoped>.main-menu {
