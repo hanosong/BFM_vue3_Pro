@@ -54,7 +54,9 @@ const router = createRouter({
 // return: 返回值决 定导航的路径
 router.beforeEach((to, from) => {
   const token = localCache.getCache(LOGIN_TOKEN);
-  if(to.path === '/main' && !token){
+  // 非登录页，全部需要校验是否有token
+  // 如果是只是想校验main以及其子页面的话，可以使用：to.path.startsWith('/main)
+  if(to.path !== '/login' && !token){
     return '/login'
   }
 })
