@@ -36,7 +36,15 @@ export function mapMenusToRoutes(userMenus: any[]) {
         console.log("menu: ", menu);
         for(const submenu of menu.children){
           const route = localRoutes.find(item => item.path === submenu.url)
-          if(route) routes.push(route)
+          if(route) {
+            // 给顶层菜单增加重定向，但是只需要添加一次即可
+            if(!routes.find(item => item.path === menu.url)){
+              routes.push({path: menu.url, redirect: route.path})
+            }
+
+            // 二级菜单
+            routes.push(route)
+          }
           if(!firstMenu && route) firstMenu = submenu;
         }
       }
@@ -46,6 +54,7 @@ export function mapMenusToRoutes(userMenus: any[]) {
 /**
  * @param path 要匹配的路径
  * @param userMenus 所有的菜单
+ *
  */
 export function mapPathToMenu(path: string, userMenus: any[]) {
   for(const menu of userMenus){
@@ -55,4 +64,21 @@ export function mapPathToMenu(path: string, userMenus: any[]) {
       }
     }
   }
+}
+
+interface IBreadcrumbs {
+  name: string
+  path: string
+}
+export function mapPathToBreadcrumbs(path: string, userMenus: any[]) {
+  const breadcrumbs :IBreadcrumbs[] = [];
+  for(const menu of userMenus){
+    for(const submenu of menu.children){
+      if(submenu.url === path){
+        breadcrumbs.push({name: menu.name, path: menu.url})
+        breadcrumbs.push({name: submenu.name, path: submenu.url})
+      }
+    }
+  }
+  return breadcrumbs
 }

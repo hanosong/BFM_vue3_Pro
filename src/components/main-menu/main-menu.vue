@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import useLoginStore from '@/store/login/login'
 import imgSrc from "@/assets/img/logo.svg"
 import {useRouter, useRoute} from "vue-router"
@@ -66,8 +66,10 @@ const handleItemClick = (item: any) => {
 
 // Elmenu 的默认选中的菜单
 const route = useRoute();
-const path = mapPathToMenu(route.path, userMenus)
-const defaultActive = ref(path.id + '')
+const defaultActive = computed(() => { // 每次选中的时候要记得刷新哦~
+  const path = mapPathToMenu(route.path, userMenus)
+  return path.id + ''
+})
 </script>
 
 <style lang="less" scoped>.main-menu {

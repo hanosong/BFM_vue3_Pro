@@ -6,9 +6,10 @@
         <component :is="isFold ? 'Expand' : 'Fold' "/>
       </el-icon>
     </div>
+    <!-- 导航面包屑 -->
     <div class="content">
       <div class="breadcrumb">
-       面包屑
+       <header-crumb></header-crumb>
       </div>
      <header-info></header-info>
     </div>
@@ -18,6 +19,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import HeaderInfo from './c-cpns/header-info.vue'
+import HeaderCrumb from './c-cpns/header-crumb.vue'
 const isFold = ref(false); // 默认图标为展开状态
 const emit = defineEmits(["foldChange"]) // 自定义事件
 const handleMenuIconClick = () => {
