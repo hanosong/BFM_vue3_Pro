@@ -49,29 +49,34 @@ const router = createRouter({
   ]
 })
 
-// 所有的路由
-const localRoutes =  [
-    {
-      path: '/main/analysis/overview',
-      component: () =>
-        import('../views/main/analysis/overview/overview.vue'),
-    },
-    {
-      path: '/main/analysis/dashboard',
-      component: () =>
-        import('../views/main/analysis/dashboard/dashboard.vue'),
-    },
-    {
-      path: '/main/system/user',
-      component: () =>
-        import('../views/main/system/user/user.vue'),
-    },
-    {
-      path: '/main/system/role',
-      component: () =>
-        import('../views/main/system/role/role.vue'),
-    },
-  ]
+// 法2：根据权限手动注册路由
+// // 1所有的路由
+// const localRoutes =  [
+//     {
+//       path: '/main/analysis/overview',
+//       component: () =>
+//         import('../views/main/analysis/overview/overview.vue'),
+//     },
+//     {
+//       path: '/main/analysis/dashboard',
+//       component: () =>
+//         import('../views/main/analysis/dashboard/dashboard.vue'),
+//     },
+//     {
+//       path: '/main/system/user',
+//       component: () =>
+//         import('../views/main/system/user/user.vue'),
+//     },
+//     {
+//       path: '/main/system/role',
+//       component: () =>
+//         import('../views/main/system/role/role.vue'),
+//     },
+//   ]
+
+// // 2动态的添加路由
+// router.addRoute('main', localRoutes[0])
+// router.addRoute('main', localRoutes[1])
 
 // 导航守卫
 // to: 跳转到的位置
