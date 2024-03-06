@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <img class="img" :src="logImgSrc" alt="" />
-    <h2 class="title">后台管理系统</h2>
+    <h2 v-show="!isFold" class="title">后台管理系统</h2>
   </div>
   <!-- menu -->
   <div class="menu">
@@ -13,6 +13,7 @@
    -->
     <el-menu
       default-active="3"
+      :collapse="isFold"
       active-text-color="#fff"
       text-color="#b7bdc3"
       background-color="#001529"
@@ -42,6 +43,13 @@ import { ref, watch } from 'vue'
 import useLoginStore from '@/store/login/login'
 import imgSrc from "@/assets/img/logo.svg"
 const logImgSrc = ref(imgSrc)
+
+defineProps({
+  isFold: {
+    type: Boolean,
+    default: false
+  }
+})
 
 // 1.获取动态菜单
 const loginStore = useLoginStore();
