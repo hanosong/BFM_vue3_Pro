@@ -89,5 +89,6 @@ router.beforeEach((to, from) => {
   if(to.path !== '/login' && !token){
     return '/login'
   }
+
 })
 export default router

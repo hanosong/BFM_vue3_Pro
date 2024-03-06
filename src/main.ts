@@ -9,10 +9,12 @@ import 'element-plus/dist/index.css'
 // import "element-plus/theme-chalk/el-message.css"; // 引入message样式
 import registerIcons from './global/register-icons'
 
+import useLoginStore from './store/login/login'
 
 const app = createApp(App)
 app.use(registerIcons) // use 一个函数， 函数会自动调用
-app.use(router)
 app.use(pinia)
-
+const loginStore = useLoginStore()
+loginStore.loadLocalCacheAction()
+app.use(router) // 最后再加载路由
 app.mount('#app')

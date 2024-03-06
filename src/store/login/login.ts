@@ -17,9 +17,9 @@ interface ILoginState {
 const useLoginStore = defineStore('login', {
   // 指定state返回值的类型
   state: (): ILoginState =>({
-    token: localCache.getCache(LOGIN_TOKEN) ?? '',
-    userInfo:  localCache.getCache('userInfo') ?? {},
-    userMenus:  localCache.getCache('userMenus')  ?? [],
+    token:  '',
+    userInfo: {},
+    userMenus: [],
   }),
   actions: {
     async loginAccountAction(account: IAccount){
@@ -49,6 +49,23 @@ const useLoginStore = defineStore('login', {
 
       // 页面跳转 main
       router.push("/main")
+
+    },
+    loadLocalCacheAction(){
+      const token = localCache.getCache(LOGIN_TOKEN);
+      const userInfo = localCache.getCache('userInfo');
+      const userMenus = localCache.getCache('userMenus');
+      if(token && userInfo && userMenus){
+        // 用户刷新的时候默认加载数据
+        this.token = token;
+        this.userInfo = userInfo;
+        this.userMenus = userMenus;
+        // 刷新的时候加载动态路由
+        // 动态添加路由
+        const routes = mapMenusToRoutes(userMenus)
+        routes.forEach(route => router.addRoute('main', route))
+
+      }
 
     }
   }
