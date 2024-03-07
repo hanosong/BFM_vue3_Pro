@@ -14,3 +14,18 @@ export const delUserById = (id: number) => {
   })
 }
 
+/** 新建用户*/
+export const newUserData = (userInfo: any) => {
+  return hyRequest.post({
+    url: '/users',
+    data: userInfo,
+  })
+}
+
+/** 编辑用户*/
+export const editUserData = (id: number, userInfo: any) {
+  return hyRequest.patch({
+    url: `/users/${id}`,
+    data: userInfo,
+  })
+}

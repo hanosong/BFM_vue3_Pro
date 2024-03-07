@@ -17,6 +17,7 @@
               placeholder="请输入真实姓名"
             />
           </el-form-item>
+          <!-- 编辑状态下，不显示密码（不提供编辑密码功能） -->
           <el-form-item v-if="isNewRef" label="密码" prop="password">
             <el-input
               v-model="formData.password"
@@ -86,7 +87,7 @@ const formData = reactive<any>({
 const isNewRef = ref(true)
 const editData = ref()
 
-// 2.获取roles/departments数据
+// 2.获取roles/departments数据 => 一登陆就获取了的数据
 const mainStore = useMainStore()
 const systemStore = useSystemStore()
 const { entireRoles, entireDepartments } = storeToRefs(mainStore)
@@ -95,18 +96,19 @@ const { entireRoles, entireDepartments } = storeToRefs(mainStore)
 function setModalVisible(isNew: boolean = true, itemData?: any) {
   dialogVisible.value = true
   isNewRef.value = isNew
+  // 点击了编辑按钮
   if (!isNew && itemData) {
-    // 编辑数据
+    // 编辑数据（回显）
     for (const key in formData) {
       formData[key] = itemData[key]
     }
-    editData.value = itemData
+    editData.value = itemData; // 传入的那一行的数据，编辑的时候需要id
   } else {
-    // 新建数据
+    // 新建数据 的时候 数据要清空数据
     for (const key in formData) {
       formData[key] = ''
     }
-    editData.value = null
+    editData.value = null; // 表示为新建数据
   }
 }
 

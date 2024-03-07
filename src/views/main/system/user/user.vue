@@ -4,7 +4,7 @@
       @query-click="handleQueryClick"
       @reset-click="handleRestClick"
     ></user-search>
-    <user-content ref="contentRef" @new-user-click="handleNewBtnClick"></user-content>
+    <user-content ref="contentRef" @new-user-click="handleNewBtnClick" @edit-click="handleEditClick"></user-content>
     <user-modal ref="modalRef"></user-modal>
   </div>
 </template>
@@ -28,8 +28,13 @@ const handleRestClick = () => {
 
 // 对modal组件进行操作
 const modalRef = ref<InstanceType <typeof UserModal>>();
+// 新增
 const handleNewBtnClick = () => {
   modalRef.value?.setModalVisible()
+}
+// 修改
+const handleEditClick = (itemData: any) => {
+  modalRef.value?.setModalVisible(false, itemData)
 }
 </script>
 

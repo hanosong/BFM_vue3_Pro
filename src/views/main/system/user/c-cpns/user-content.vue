@@ -81,7 +81,7 @@
           width="150px"
         >
          <template #default="rowScope">
-          <el-button size="small" icon="Edit" type="primary" text>
+          <el-button size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
             编辑
           </el-button>
           <el-button  @click="handleDelClick(rowScope.row?.id)" size="small" icon="Delete" type="danger" text>
@@ -112,7 +112,7 @@ import {ref} from 'vue'
 import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
 import {fromatUTC} from '@/utils/format';
-const emit = defineEmits(['newUserClick'])
+const emit = defineEmits(['newUserClick', "editClick"])
 const currentPage = ref(1);
 const pageSize = ref(10);
 
@@ -150,7 +150,12 @@ const handleDelClick = (id: string | number) => {
 const handleNewUserClick = () => {
   emit("newUserClick")
 }
-defineExpose({fetchUserListData})
+
+// 编辑
+const handleEditBtnClick = (itemData: any) => {
+  emit("editClick", itemData)
+}
+defineExpose({fetchUserListData, handleEditBtnClick})
 </script>
 
 <style lang="less" scoped>
