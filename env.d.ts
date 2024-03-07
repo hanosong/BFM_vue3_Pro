@@ -9,3 +9,6 @@ declare module '*.vue' {
   const component: DefineComponent
   export default component
 }
+
+// 为element 的国际化组件做声明
+declare module "*.mjs"

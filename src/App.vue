@@ -1,18 +1,13 @@
 <template>
   <div class="app">
-    <RouterView></RouterView>
+    <el-config-provider :locale="zhCn">
+      <RouterView></RouterView>
+    </el-config-provider>
   </div>
 </template>
 
 <script setup lang="ts">
-interface IKun {
-  name: string
-}
-
-const ikun: IKun = {
-  name: 'kobe'
-}
-console.log(ikun)
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 </script>
 
 <style scoped>
