@@ -95,7 +95,7 @@ import {ref} from 'vue'
 import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
 import {fromatUTC} from '@/utils/format';
-const emit = defineEmits(['newUserClick', "editClick"])
+const emit = defineEmits(['newClick', "editClick"])
 const currentPage = ref(1);
 const pageSize = ref(10);
 
@@ -133,9 +133,12 @@ const handleDelClick = (id: string | number) => {
 
 // 新建用户功能
 const handleNewUserClick = () => {
-  emit("newUserClick")
+  emit("newClick")
 }
-
+// 编辑
+const handleEditBtnClick = (itemData: any) => {
+  emit('editClick', itemData)
+}
 
 defineExpose({fetchPageListData})
 </script>
