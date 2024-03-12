@@ -19,6 +19,21 @@ const searchConig = {
       prop: 'createAt',
       label: '创建时间',
     },
+    // 下拉框
+    {
+      type: 'select',
+      prop: 'enable',
+      label: '状态',
+      placeholder: '请输入查询的状态',
+      options: [
+        {
+          label: "启动", value: '1'
+        },
+        {
+          label: "停止", value: '2'
+        },
+      ]
+    },
 
   ]
 }
