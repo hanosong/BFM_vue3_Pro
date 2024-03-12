@@ -37,3 +37,10 @@ export const postPageListData = (pageName: string, queryInfo: any) => {
     data: queryInfo,
   })
 }
+
+/** 删除用户*/
+export const deletePageById = (pageName: string, id: number) => {
+  return hyRequest.delete({
+    url: `/${pageName}/${id}`,
+  })
+}

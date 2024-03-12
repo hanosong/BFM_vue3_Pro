@@ -128,7 +128,7 @@ function fetchPageListData(formData: any = {}) {
 
 // 删除
 const handleDelClick = (id: string | number) => {
-  systemStore.delUserByIdAction(id)
+  systemStore.deletePageByIdAction('department',id)
 }
 
 // 新建用户功能
@@ -176,4 +176,5 @@ defineExpose({fetchPageListData})
   margin-top: 5px;
 }
 </style>
+import type { deletePageById } from '@/service/main/system/system';
 
