@@ -130,6 +130,7 @@ import { fromatUTC } from '@/utils/format';
 
 interface IProps {
   contentConfig: {
+    pageName: string
     header?: {
       title?: string
       btnTitle?: string
@@ -168,12 +169,12 @@ function fetchPageListData(formData: any = {}) {
   const pageInfo = { size, offset }
   const queryInfo = { ...pageInfo, ...formData }
 
-  systemStore.postPageListAction("department", queryInfo);
+  systemStore.postPageListAction(props.contentConfig.pageName, queryInfo);
 }
 
 // 删除
 const handleDelClick = (id: string | number) => {
-  systemStore.deletePageByIdAction('department', id)
+  systemStore.deletePageByIdAction(props.contentConfig.pageName, id)
 }
 
 // 新建用户功能
