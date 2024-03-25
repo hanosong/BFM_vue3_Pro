@@ -1,11 +1,11 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["src/**/*", "src/**/*.vue", "env.d.ts","auto-import.d.ts", "components.d.ts"],
+  "extends": "@vue/tsconfig/tsconfig.web.json", // 基于该配置进行修改和扩展
+  "include": ["src/**/*", "src/**/*.vue", "env.d.ts","auto-import.d.ts", "components.d.ts"], // 指定需要编译的文件路径
   "compilerOptions": {
-    "ignoreDeprecations": "5.0",
-    "baseUrl": ".",
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
+    "ignoreDeprecations": "5.0", // 忽略特定版本的弃用警告
+    "baseUrl": ".", // 基础路径设置为当前目录（解析模块的导入路径 / 路径映射 / 输出文件 会基于此路径）
+    "noEmit": true, // 不生成转换为js的文件
+    "allowImportingTsExtensions": true, // 允许导入ts扩展（.ts 文件）
     // 这个路径提示是给vscode提示的，不是用于打包的
     "paths": {
       "@/*": ["./src/*"]
@@ -15,6 +15,7 @@
   },
 
   // tsconfig.json不建议修改，如果要修改去tsconfig.config.json文件中
+  // 引用其他的配置文件
   "references": [
     {
       "path": "./tsconfig.config.json"
