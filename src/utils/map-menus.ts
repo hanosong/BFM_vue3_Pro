@@ -65,7 +65,7 @@ export function mapMenusToRoutes(userMenus: any[]) {
 /**
  * @param path 要匹配的路径
  * @param userMenus 所有的菜单
- *
+ * @returns path 对应的那个路由信息，包括子路由
  */
 export function mapPathToMenu(path: string, userMenus: any[]) {
   for (const menu of userMenus) {
@@ -81,11 +81,18 @@ interface IBreadcrumbs {
   name: string
   path: string
 }
+/**
+ *
+ * @param path 当前页面的url
+ * @param userMenus 所有的url list
+ * @returns 返回当前url（二级路径）对应的一级路径和二级路径组成的平面数组
+ */
 export function mapPathToBreadcrumbs(path: string, userMenus: any[]) {
   const breadcrumbs: IBreadcrumbs[] = [];
   for (const menu of userMenus) {
     for (const submenu of menu.children) {
-      if (submenu.url === path) {
+      if (submenu.url === path) { // 找到对应的二级菜单
+        // 把一级菜单和二级菜单都一个数组中（平铺）
         breadcrumbs.push({ name: menu.name, path: menu.url })
         breadcrumbs.push({ name: submenu.name, path: submenu.url })
       }

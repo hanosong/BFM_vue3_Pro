@@ -2,6 +2,7 @@
   <div class="curmb">
     <el-breadcrumb separator-icon="ArrowRight">
       <template v-for="item in breadcrumbs" :key="item.name">
+        <!-- 面包屑的名字/点击跳转路径 -->
         <el-breadcrumb-item :to="item.path">{{item.name}}</el-breadcrumb-item>
       </template>
     </el-breadcrumb>

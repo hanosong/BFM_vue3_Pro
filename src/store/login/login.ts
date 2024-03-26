@@ -20,7 +20,7 @@ const useLoginStore = defineStore('login', {
   state: (): ILoginState => ({
     token: '',
     userInfo: {},
-    userMenus: [],
+    userMenus: [], // data：一级路由，data.children: 二级路由
   }),
   actions: {
     /**
@@ -40,7 +40,7 @@ const useLoginStore = defineStore('login', {
       this.userInfo = userInfo
 
       // 根据角色信息请求用户的权限菜单 menus
-      const userMenusRes = await getUserMenusByRoleId(this.userInfo.role.id)
+      const userMenusRes = await getUserMenusByRoleId(this.userInfo.role.id) // 返回菜单的url，如果有二级菜单，则二级菜单的url在children属性中
       console.log("userMenusRes: ", userMenusRes)
       this.userMenus = userMenusRes.data
 

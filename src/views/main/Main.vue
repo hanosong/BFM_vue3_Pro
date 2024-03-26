@@ -2,10 +2,12 @@
   <div class="main">
     <el-container class="main-content">
       <el-aside :width="isCollaps ? '55px' : '200px'">
+        <!-- 侧边栏容器  isFold:是否折叠侧边栏-->
         <main-menu :isFold="isCollaps" ></main-menu>
       </el-aside>
       <el-container>
         <el-header>
+          <!-- 顶栏容器 -->
           <main-header @fold-change="handleFoldChange"/>
         </el-header>
         <!-- 使用动态路由作为main的内容 -->
@@ -34,6 +36,7 @@ import MainHeader from '@/components/main-header/main-header.vue'
 import {ref} from 'vue'
 // 处理main-header中折叠的变化
 const isCollaps = ref(false)
+// 顶栏容器的折叠icon是否折叠
 const handleFoldChange = (isFold: boolean) => {
   isCollaps.value = isFold
 }

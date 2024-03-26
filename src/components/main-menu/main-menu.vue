@@ -22,7 +22,7 @@
       <template v-for="item in userMenus" :key="item.id">
         <el-sub-menu :index="item.id + '' ">
           <template #title>
-            <!-- 将字符串：el-icon-monitor => 组件 使用：component 动态组件 -->
+            <!-- 将字符串：el-icon-monitor 变成组件 => 使用：component 动态组件 -->
             <el-icon>
               <component :is="item.icon.split('-icon-')[1]" />
             </el-icon>
@@ -42,7 +42,7 @@
 import { ref, watch, computed } from 'vue'
 import useLoginStore from '@/store/login/login'
 import imgSrc from "@/assets/img/logo.svg"
-import {useRouter, useRoute} from "vue-router"
+import {useRouter, useRoute, type RouteLocationNormalizedLoaded} from "vue-router"
 import {firstMenu, mapPathToMenu} from "@/utils/map-menus"
 const logImgSrc = ref(imgSrc)
 
@@ -56,17 +56,16 @@ defineProps({
 // 1.获取动态菜单
 const loginStore = useLoginStore();
 const userMenus = loginStore.userMenus;
-
 // 监听菜单点击
 const router = useRouter()
 const handleItemClick = (item: any) => {
   const url = item.url;
-  router.push(url);
+  router.push(url); // menu点击子菜单进行路由跳转
 }
 
-// Elmenu 的默认选中的菜单
-const route = useRoute();
-const defaultActive = computed(() => { // 每次选中的时候要记得刷新哦~
+// Elmenu 的默认选中的菜单（页面加载时）
+const route : RouteLocationNormalizedLoaded = useRoute();
+const defaultActive = computed(() => { // 为啥用计算属性？ => 因为每次选中的时候要刷新哦~
   const path = mapPathToMenu(route.path, userMenus)
   return path.id + ''
 })

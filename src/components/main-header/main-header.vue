@@ -6,11 +6,12 @@
         <component :is="isFold ? 'Expand' : 'Fold' "/>
       </el-icon>
     </div>
-    <!-- 导航面包屑 -->
     <div class="content">
       <div class="breadcrumb">
+        <!-- 导航面包屑 -->
        <header-crumb></header-crumb>
       </div>
+      <!-- 右上头像和小图标 -->
      <header-info></header-info>
     </div>
   </div>
