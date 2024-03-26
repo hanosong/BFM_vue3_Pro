@@ -33,23 +33,28 @@ export let firstMenu: any = null; // 第一次进入页面的时候，应该进�
    3. 根据菜单去匹配正确的路由 router.addRoute()
  */
 export function mapMenusToRoutes(userMenus: any[]) {
+  console.log(userMenus, "mapMenusToRoutes")
   // 1.加载本地路由
   const localRoutes = loadLocalRoutes()
+  console.log(localRoutes, "localRoutes")
   // 所有的路由和根据菜单的路由进行取交集
   const routes: RouteRecordRaw[] = []
+  // 一级路由遍历 menu
   for (const menu of userMenus) {
-    console.log("menu: ", menu);
+    // 二级路由遍历 submenu
     for (const submenu of menu.children) {
       const route = localRoutes.find(item => item.path === submenu.url)
       if (route) {
         // 给顶层菜单(进入后的默认第一个菜单)增加重定向，但是只需要添加一次即可
-        if (!routes.find(item => item.path === menu.url)) {
-          routes.push({ path: menu.url, redirect: route.path })
+        if (!routes.find(item => item.path === menu.url)) { // 如果路由的路径等于返回接口路由url的一级路由
+          console.log("route.path: ", route.path)
+          routes.push({ path: menu.url, redirect: route.path }) // 则重定向到对应的二级路由
         }
 
         // 二级菜单
         routes.push(route)
       }
+      // 进入页面默认的路由如果还没有，则默认是第一个子路由的路径（路由守卫中用）
       if (!firstMenu && route) firstMenu = submenu;
     }
   }
