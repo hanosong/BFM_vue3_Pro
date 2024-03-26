@@ -1,5 +1,6 @@
 import { createPinia } from 'pinia'
 import useLoginStore from './login/login'
+import type { App } from 'vue'
 const pinia = createPinia()
 const registerStore = (app: App<Element>) => {
   // 1. use pinia
