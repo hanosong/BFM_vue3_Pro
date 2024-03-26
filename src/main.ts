@@ -7,7 +7,7 @@ import 'normalize.css'
 import './assets/css/index.less' // vite 默认支持less，需要安装
 import 'element-plus/dist/index.css'
 // import "element-plus/theme-chalk/el-message.css"; // 引入message样式
-import registerIcons from './global/register-icons'
+import registerIcons from './global/register-icons' // 导入所有图标并注册
 
 const app = createApp(App)
 app.use(registerIcons) // use 一个函数， 函数会自动调用
