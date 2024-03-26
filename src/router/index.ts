@@ -1,14 +1,14 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { LOGIN_TOKEN } from "@/global/constants";
 import { localCache } from '@/utils/cache';
-import {firstMenu} from "@/utils/map-menus"
+import { firstMenu } from "@/utils/map-menus"
 const router = createRouter({
   history: createWebHashHistory(),
   // 映射关系: path => component
   routes: [
     {
       path: '/',
-      redirect: '/main'
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -82,16 +82,18 @@ const router = createRouter({
 // to: 跳转到的位置
 // from：从哪里跳转过来
 // return: 返回值决 定导航的路径
+console.log(router, 'router')
 router.beforeEach((to, from) => {
   const token = localCache.getCache(LOGIN_TOKEN);
   // 非登录页，全部需要校验是否有token
   // 如果是只是想校验main以及其子页面的话，可以使用：to.path.startsWith('/main)
-  if(to.path !== '/login' && !token){
+  if (to.path !== '/login' && !token) {
     return '/login'
   }
 
   // 如果进入的是main页面
-  if(to.path === '/main'){
+  if (to.path === '/main') {
+    console.log(firstMenu, 'firstMenu')
     return firstMenu?.url
   }
 })

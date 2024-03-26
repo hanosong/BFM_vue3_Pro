@@ -2,6 +2,7 @@
   <div class="login-panel">
     <h1 class="title"> 小哈后台管理 </h1>
     <div class="tabs">
+      <!-- tab页签 => 账号密码登录还是手机登录 -->
       <el-tabs type="border-card" :stretch="true" v-model="activeName">
         <!-- tab没有提供图标，所以要用插槽实现 -- add-icon  -->
         <el-tab-pane name="account">
@@ -21,6 +22,7 @@
             <span class="text">手机登录</span>
            </div>
           </template>
+          <!-- 账号密码输入框 -->
           <pane-phone></pane-phone>
         </el-tab-pane>
       </el-tabs>
@@ -38,8 +40,8 @@ import { ref, watch } from 'vue'
 import PaneAccount from "./pane-account.vue"
 import PanePhone from "./pane-phone.vue"
 import { localCache } from "@/utils/cache";
-
-const isRememberPassWord = ref<boolean>(localCache.getCache('isRememberPassWord') ?? true); // ref（）=> () 小括号可以传泛型
+// isRememberPassWord 为了解决报错暂时写死为 any
+const isRememberPassWord : any = ref<boolean>(localCache.getCache('isRememberPassWord') ?? true); // ref（）=> () 小括号可以传泛型
 const activeName = ref<string>("account");
 
 // 记录用户是否选择记住密码
@@ -52,6 +54,7 @@ watch(isRememberPassWord, (newVal) => {
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
 const loginHandle = () => {
   if(activeName.value === "account"){
+    console.log(isRememberPassWord, "isRememberPassWord")
     // 账号登录
     accountRef.value?.loginAction(isRememberPassWord)
   }else{

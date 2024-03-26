@@ -23,6 +23,10 @@ const useLoginStore = defineStore('login', {
     userMenus: [],
   }),
   actions: {
+    /**
+     * 点击登录的时候触发，保存角色信息，动态添加路由并跳转到main页面(由路由拦截重定向到第一个子菜单页面)
+     * @param account {name: string, password: string | number} 用户名 / 密码
+     */
     async loginAccountAction(account: IAccount) {
       const loginRes = await accountLoginRequest(account)
       // 保存在pinia中的数据是在内存中的，还需要做持久化，防止用户刷新

@@ -47,7 +47,8 @@ const accountRules: FormRules = {
 }
 const formRef = ref<InstanceType <typeof ElForm>>()
   const loginStore = useLoginStore()
-const loginAction = (isRemPwd: boolean) => {
+const loginAction = (isRemPwd: any) => {
+  console.log(isRemPwd, "isRememberPwd")
   formRef.value?.validate(valid => {
     if(!valid){
       ElMessage({
@@ -59,6 +60,7 @@ const loginAction = (isRemPwd: boolean) => {
     const {name,password} = account;
     // 登录并保存用户信息
     loginStore.loginAccountAction({name, password}).then(() => {
+      // 是否记住用户名/密码
       if(isRemPwd.value){
         localCache.setCache(CACHE_NAME, name)
         localCache.setCache(CACHE_PASSWORD, password)
