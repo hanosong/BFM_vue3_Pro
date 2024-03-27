@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div class="header">
-      <h3 class="title">{{ contentConfig.header.title ?? "数据列表" }}</h3>
+      <h3 class="title">{{ props.contentConfig.header.title ?? "数据列表" }}</h3>
       <el-button type="primary" @click="handleNewUserClick">
-        {{ contentConfig.header.btnTitle ?? "新建数据" }}
+        {{ props.contentConfig.header.btnTitle ?? "新建数据" }}
       </el-button>
     </div>
     <!-- 用户管理的表格 -->
