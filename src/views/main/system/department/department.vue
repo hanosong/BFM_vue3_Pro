@@ -20,21 +20,38 @@
         </span>
       </template>
     </page-content>
-    <page-modal ref="modalRef"></page-modal>
+    <page-modal ref="modalRef" :modalConfig="modalConfigRef"></page-modal>
   </div>
 </template>
 
 <script setup lang="ts" name="department">
 import pageSearch from '@/components/page-search/page-search.vue';
 import PageContent from '@/components/page-content/page-content.vue';
-import pageModal from './c-cpn/page-modal.vue';
+import pageModal from '@/components/page-modal/page-modal.vue';
 
 import searchConfig from './config/search.config.ts'
 import contentConfig from './config/content.config.ts'
+import modalConfig from "./config/modal.config.ts" // 弹窗的配置
+import { ref, computed } from 'vue'
+import useMainStore from '@/store/main/main';
 
-import { ref } from 'vue'
-
-
+// 对modalConfig进行操作 => 使用computed 是为了动态生成表单配置
+const modalConfigRef = computed(() => {
+  const mainStore = useMainStore(); // 为了拿到部门信息
+  // 由于接口返回来的叫id/name => 需要映射为id/value，
+  const departments = mainStore.entireDepartments.map((item) => {
+    return { label: item.name, value: item.id }
+  })
+  console.log(departments, "departments")
+  modalConfig.formItems.forEach((item) => {
+    console.log(item, "item")
+    // 如果是上级部门栏位
+    if(item.prop === 'parentId'){
+       item.options.push(...departments) // 要记得解构 => 拿到数组里面的对象
+    }
+  })
+  return modalConfig
+})
 // 点击search, content的操作
 const contentRef = ref<InstanceType<typeof PageContent>>()
 const handleQueryClick = (queryInfo: any) => {
@@ -45,7 +62,7 @@ const handleResetClick = () => {
 }
 
 // 点击content，弹出弹窗
-const modalRef = ref<InstanceType <typeof PageModal>>()
+const modalRef = ref<InstanceType <typeof pageModal>>()
 const handleNewClick = () => {
    modalRef.value?.setModalVisible()
 };
