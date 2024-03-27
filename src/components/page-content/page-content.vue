@@ -8,7 +8,7 @@
     </div>
     <!-- 用户管理的表格 -->
     <div class="table">
-      <el-table :data="pageList" border style="width: 100%">
+      <el-table :data="pageList" border style="width: 100%" v-bind="props.contentConfig.childrenTree"> <!-- 不要写死 row-key="id"  :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" ，还是动态写然后用v-bind绑定-->
         <!-- 使用配置的做法 -->
         <template v-for="item in contentConfig.propsList" :key="item.prop">
           <template v-if="item.type === 'timer'">
@@ -136,6 +136,7 @@ interface IProps {
       btnTitle?: string | undefined
     } | undefined
     propsList: any[]
+    childrenTree?: any
   }
 }
 
