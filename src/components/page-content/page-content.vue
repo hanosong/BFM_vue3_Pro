@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div class="header">
-      <h3 class="title">{{ props.contentConfig.header.title ?? "数据列表" }}</h3>
+      <h3 class="title">{{ props.contentConfig.header?.title ?? "数据列表" }}</h3>
       <el-button type="primary" @click="handleNewUserClick">
-        {{ props.contentConfig.header.btnTitle ?? "新建数据" }}
+        {{ props.contentConfig.header?.btnTitle ?? "新建数据" }}
       </el-button>
     </div>
     <!-- 用户管理的表格 -->
@@ -132,9 +132,9 @@ interface IProps {
   contentConfig: {
     pageName: string
     header?: {
-      title?: string
-      btnTitle?: string
-    }
+      title?: string | undefined
+      btnTitle?: string | undefined
+    } | undefined
     propsList: any[]
   }
 }
