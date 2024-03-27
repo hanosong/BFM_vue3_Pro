@@ -116,7 +116,7 @@
     <!-- 分页 -->
     <div class="pagination">
       <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :page-sizes="[5, 10, 20, 30]"
-        small="small" layout="sizes, prev, pager, next, jumper,total" :total="pageTotalCount"
+        small layout="sizes, prev, pager, next, jumper,total" :total="pageTotalCount"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </div>
   </div>
