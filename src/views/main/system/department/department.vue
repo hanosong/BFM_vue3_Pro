@@ -34,7 +34,8 @@ import contentConfig from './config/content.config.ts'
 import modalConfig from "./config/modal.config.ts" // 弹窗的配置
 import { ref, computed } from 'vue'
 import useMainStore from '@/store/main/main';
-
+import { usePageContent } from '@/hooks/usePageContent.ts';
+import {usePageModal} from '@/hooks/usePageModal.ts'
 // 对modalConfig进行操作 => 使用computed 是为了动态生成表单配置
 const modalConfigRef = computed(() => {
   const mainStore = useMainStore(); // 为了拿到部门信息
@@ -52,23 +53,13 @@ const modalConfigRef = computed(() => {
   })
   return modalConfig
 })
+
 // 点击search, content的操作
-const contentRef = ref<InstanceType<typeof PageContent>>()
-const handleQueryClick = (queryInfo: any) => {
-  contentRef.value?.fetchPageListData(queryInfo) // 让内容组件进行搜索
-}
-const handleResetClick = () => {
-  contentRef.value?.fetchPageListData()
-}
+const { contentRef, handleQueryClick, handleResetClick } = usePageContent()
 
 // 点击content，弹出弹窗
-const modalRef = ref<InstanceType <typeof pageModal>>()
-const handleNewClick = () => {
-   modalRef.value?.setModalVisible()
-};
-const handleEditClick = (itemData: any) => {
-  modalRef.value?.setModalVisible(false, itemData)
-};
+const { modalRef, handleNewClick, handleEditClick } = usePageModal()
+
 </script>
 
 <style scoped>
