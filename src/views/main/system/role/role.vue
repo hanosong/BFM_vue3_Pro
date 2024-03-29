@@ -60,6 +60,7 @@ const treeRef = ref<InstanceType<typeof ElTree>>()
 const editCallBack = (itemData: any) => {
   console.log(itemData.menuList, "itemData")
   console.log(mapMenuListToIds(itemData.menuList), "itemData---")
+  // 之所以要用nextTick,是因为要等待弹窗打开
   nextTick(() => {
     const ids = mapMenuListToIds(itemData.menuList)
     treeRef.value?.setCheckedKeys(ids)
