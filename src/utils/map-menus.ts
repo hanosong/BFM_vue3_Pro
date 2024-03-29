@@ -100,3 +100,29 @@ export function mapPathToBreadcrumbs(path: string, userMenus: any[]) {
   }
   return breadcrumbs
 }
+
+/**
+ * 将[{id:1, children:[{id: 2, children:[...]}]} 映射为[id, id, ...]
+ * @param menulist
+ */
+export const mapMenuListToIds = (menulist: any[]) => {
+  const ids: number[] = []
+  // 递归获取id
+  const recurseGetIds = (menus: any[]) => {
+    // 开始递归
+    for (const item of menus) {
+      // 如果还有children属性,表明还没有到最低下
+      if (item.children) {
+        // 继续递归
+        recurseGetIds(item.children)
+      } else {
+        // 找到最底层的id
+        ids.push(item.id)
+      }
+    }
+  }
+
+  // 执行递归
+  recurseGetIds(menulist)
+  return ids
+}

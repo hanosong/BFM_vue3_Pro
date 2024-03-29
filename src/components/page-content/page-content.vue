@@ -21,6 +21,7 @@
           <template v-else-if="item.type === 'handler'">
             <el-table-column align="center" v-bind="item">
               <template #default="rowScope">
+                <!-- 点击编辑的时候把整行的数据抛出去 -->
                 <el-button size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
                   编辑
                 </el-button>
