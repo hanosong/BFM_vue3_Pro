@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import accountLoginRequest, { getUserInfoById, getUserMenusByRoleId } from "@/service/login/login"
 import type { IAccount } from '@/types'
 import { localCache } from "@/utils/cache";
-import { mapMenusToRoutes } from "@/utils/map-menus"
+import { mapMenuListToPermissions, mapMenusToRoutes } from "@/utils/map-menus"
 import router from "@/router";
 import { LOGIN_TOKEN } from "@/global/constants";
 import useMainStore from "../main/main";
@@ -14,6 +14,7 @@ interface ILoginState {
     }
   } */
   userMenus: any
+  permissions: string[]
 }
 const useLoginStore = defineStore('login', {
   // 指定state返回值的类型
@@ -21,6 +22,7 @@ const useLoginStore = defineStore('login', {
     token: '',
     userInfo: {},
     userMenus: [], // data：一级路由，data.children: 二级路由
+    permissions: [], // 按钮权限
   }),
   actions: {
     /**
@@ -42,11 +44,16 @@ const useLoginStore = defineStore('login', {
       // 根据角色信息请求用户的权限菜单 menus
       const userMenusRes = await getUserMenusByRoleId(this.userInfo.role.id) // 返回菜单的url，如果有二级菜单，则二级菜单的url在children属性中
       console.log("userMenusRes: ", userMenusRes)
-      this.userMenus = userMenusRes.data
+      const userMenus = userMenusRes.data;
+      this.userMenus = userMenus
 
       // 进行本地缓存
       localCache.setCache('userInfo', userInfo)
       localCache.setCache('userMenus', userMenusRes.data)
+
+      // ! 获取登录用户的所有按钮的权限 (从userMenus里面取)
+      const permissions = mapMenuListToPermissions(userMenus)
+      this.permissions = permissions
 
       // 登录的请求所有的角色roles和部门departments数据
       const mainStore = useMainStore();
@@ -72,6 +79,11 @@ const useLoginStore = defineStore('login', {
         // 刷新的时候再次请求所有的角色roles和部门departments数据
         const mainStore = useMainStore();
         mainStore.fetchEntireDataAction()
+
+        // ! 获取登录用户的所有按钮的权限 (从userMenus里面取)
+        const permissions = mapMenuListToPermissions(userMenus)
+        this.permissions = permissions
+
         // 刷新的时候加载动态路由
         // 动态添加路由
         const routes = mapMenusToRoutes(userMenus)
