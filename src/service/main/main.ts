@@ -12,3 +12,10 @@ export const getEntireDepartments = () => {
     url: "/department/list"
   })
 }
+
+// 获取所有菜单
+export const getEntireMenus = () => {
+  return hyRequest.post({
+    url: "/menu/list"
+  })
+}

@@ -19,6 +19,11 @@ const modalConfig: IModalConfig = {
       prop: "intro",
       placeholder: "请输入权限介绍"
     },
+    // 树形结构的菜单列表
+    {
+      type: "custom",
+      slotName: "menulist"
+    }
 
   ]
 }

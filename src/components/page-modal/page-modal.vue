@@ -24,6 +24,10 @@
                   </template>
                 </el-select>
               </template>
+              <!--  自定义插槽 注意：插槽没有绑定prop，没办法托管到formData-->
+              <template v-if="item.type === 'custom'">
+                <slot :name="item.slotName"></slot>
+              </template>
             </el-form-item></template>
         </el-form>
       </div>
@@ -91,13 +95,18 @@ function setModalVisible(isNew: boolean = true, itemData?: any) {
 
 // 3.点击了确定的逻辑
 function handleConfirmClick() {
-  dialogVisible.value = false
+  dialogVisible.value = false;
+  let infoData = formData;
+  // 判断是否传入了表单中的其他数据（插槽）
+  if(props.otherInfo){
+    infoData = {...infoData, ...props.otherInfo}
+  }
   if (!isNewRef.value && editData.value) {
     // 编辑部门的数据
-    systemStore.editPageDataAction(props.modalConfig.pageName, editData.value.id, formData)
+    systemStore.editPageDataAction(props.modalConfig.pageName, editData.value.id, infoData)
   } else {
     // 创建新的部门
-    systemStore.newPageDataAction(props.modalConfig.pageName, formData)
+    systemStore.newPageDataAction(props.modalConfig.pageName, infoData)
   }
 }
 
@@ -108,5 +117,11 @@ defineExpose({ setModalVisible })
 <style lang="less" scoped>
 .form {
   padding: 0 20px;
+  :deep(.el-tree__empty-text){ // 重写el-tree没数据的时候显示暂无数据的样式
+    min-width: 60px;
+  }
+  :deep(.el-tree ){ // 重写树形下拉el-tree样式
+    width: 100%
+  }
 }
 </style>
