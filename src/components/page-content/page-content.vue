@@ -2,7 +2,7 @@
   <div class="content">
     <div class="header">
       <h3 class="title">{{ props.contentConfig.header?.title ?? "数据列表" }}</h3>
-      <el-button type="primary" @click="handleNewUserClick">
+      <el-button v-if="isCreate" type="primary" @click="handleNewUserClick">
         {{ props.contentConfig.header?.btnTitle ?? "新建数据" }}
       </el-button>
     </div>
@@ -22,10 +22,10 @@
             <el-table-column align="center" v-bind="item">
               <template #default="rowScope">
                 <!-- 点击编辑的时候把整行的数据抛出去 -->
-                <el-button size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
+                <el-button v-if="isUpdate" size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
                   编辑
                 </el-button>
-                <el-button @click="handleDelClick(rowScope.row?.id)" size="small" icon="Delete" type="danger" text>
+                <el-button v-if="isDelete" @click="handleDelClick(rowScope.row?.id)" size="small" icon="Delete" type="danger" text>
                   删除
                 </el-button>
               </template>
@@ -127,8 +127,9 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
+import useLoginStore from '@/store/login/login'
 import { fromatUTC } from '@/utils/format';
-
+import { ElNotification } from 'element-plus'
 interface IProps {
   contentConfig: {
     pageName: string
@@ -146,6 +147,14 @@ const props = defineProps<IProps>()
 const emit = defineEmits(['newClick', "editClick"])
 const currentPage = ref(1);
 const pageSize = ref(10);
+
+// 0. 一进入组件,立即判断是否具有相关按钮权限
+const loginStore = useLoginStore()
+const { permissions } = loginStore
+let isCreate = permissions.find(item => item.includes(`${props.contentConfig.pageName}:create`));
+let isUpdate = permissions.find(item => item.includes(`${props.contentConfig.pageName}:update`));
+let isDelete = permissions.find(item => item.includes(`${props.contentConfig.pageName}:delete`));
+let isQuery = permissions.find(item => item.includes(`${props.contentConfig.pageName}:query`));
 
 // 1.发起action，请求usersList的数据
 const systemStore = useSystemStore()
@@ -166,6 +175,14 @@ const handleCurrentChange = () => {
 
 // 请求表格数据
 function fetchPageListData(formData: any = {}) {
+  if(!isQuery){
+    ElNotification({
+      title: 'Warning',
+      message: '很抱歉,您没有查看权限',
+      type: 'warning',
+    })
+    return
+  }
   const size = pageSize.value;
   const offset = (currentPage.value - 1) * pageSize.value;
   const pageInfo = { size, offset }

@@ -42,7 +42,7 @@ const useSystemStore = defineStore("system", {
       this.pageTotalCount = totalCount;
     },
     // 删除
-    async deletePageByIdAction(pageName: string, id: number) {
+    async deletePageByIdAction(pageName: string, id: number | string) {
       const delRes = await deletePageById(pageName, id);
       // 刷新
       this.postPageListAction(pageName, { offset: 0, size: 10 })
