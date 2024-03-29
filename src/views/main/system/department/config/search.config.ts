@@ -1,5 +1,6 @@
 // 正对search 的配置
 const searchConig = {
+  pageName: 'department',
   formItems: [
     {
       type: 'input',

@@ -130,6 +130,7 @@ import useSystemStore from '@/store/main/system/system'
 import useLoginStore from '@/store/login/login'
 import { fromatUTC } from '@/utils/format';
 import { ElNotification } from 'element-plus'
+import {usePermissions} from "@/hooks/usePermissions";
 interface IProps {
   contentConfig: {
     pageName: string
@@ -149,12 +150,10 @@ const currentPage = ref(1);
 const pageSize = ref(10);
 
 // 0. 一进入组件,立即判断是否具有相关按钮权限
-const loginStore = useLoginStore()
-const { permissions } = loginStore
-let isCreate = permissions.find(item => item.includes(`${props.contentConfig.pageName}:create`));
-let isUpdate = permissions.find(item => item.includes(`${props.contentConfig.pageName}:update`));
-let isDelete = permissions.find(item => item.includes(`${props.contentConfig.pageName}:delete`));
-let isQuery = permissions.find(item => item.includes(`${props.contentConfig.pageName}:query`));
+let isCreate = usePermissions(`${props.contentConfig.pageName}:create`);
+let isUpdate = usePermissions(`${props.contentConfig.pageName}:update`);
+let isDelete = usePermissions(`${props.contentConfig.pageName}:delete`);
+let isQuery = usePermissions(`${props.contentConfig.pageName}:query`);
 
 // 1.发起action，请求usersList的数据
 const systemStore = useSystemStore()

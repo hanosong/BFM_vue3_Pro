@@ -1,5 +1,6 @@
 // 正对role 的配置
 const searchConig = {
+  pageName: "role",
   formItems: [
     {
       type: 'input',

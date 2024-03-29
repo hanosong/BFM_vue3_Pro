@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <div class="search" v-if="isQuery">
     <!-- 1.输入搜索关键字的表单 -->
     <el-form :model="searchForm" ref="formRef" label-width="80px" size="large">
       <!-- 每个item首尾间距20 -->
@@ -38,14 +38,18 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import type { ElForm } from 'element-plus'
+import {usePermissions} from "@/hooks/usePermissions";
 // 接受传递给我的配置
 interface IProps {
   searchConfig: {
+    pageName: string
     formItems: any[]
   }
 }
 const props = defineProps<IProps>()
 
+// 按钮权限
+const isQuery = usePermissions(`${props.searchConfig.pageName}:query`);
 
 // 定义自定义事件
 const emit = defineEmits(["queryClick", "resetClick"])
