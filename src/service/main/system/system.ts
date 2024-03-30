@@ -8,7 +8,7 @@ export const postUsersListData = (queryInfo: any) => {
 }
 
 /** 删除表格数据 */
-export const delUserById = (id: number) => {
+export const delUserById = (id: number | string) => {
   return hyRequest.delete({
     url: `/users/${id}`,
   })

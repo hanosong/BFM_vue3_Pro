@@ -18,7 +18,7 @@ const useSystemStore = defineStore("system", {
       this.usersTotalCount = totalCount;
       this.usersList = list;
     },
-    async delUserByIdAction(id: number) {
+    async delUserByIdAction(id: number | string) {
       const delRes = await delUserById(id)
       // 重新请求数据
       this.postUsersListAction({ offset: 0, size: 10 })
