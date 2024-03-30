@@ -22,7 +22,7 @@
             :size="30"
             src="https://p26-passport.byteacctimg.com/img/user-avatar/3607e2aee7ea5daabb69b042a513ce3f~40x40.awebp"
           />
-          <span class="name">哈鋆</span>
+          <span class="name">{{ loginStore.userInfo.name }}</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
@@ -49,10 +49,15 @@
 import {localCache} from "@/utils/cache";
 import {LOGIN_TOKEN} from "@/global/constants";
 import {useRouter} from "vue-router";
+import useLoginStore from "@/store/login/login";
+
+// 用户信息
+const loginStore = useLoginStore()
+
+/**
+ * 退出
+ */
  const router = useRouter()
- /**
-  * 退出
-  */
  const handleExitClick = () => {
   localCache.removeCache(LOGIN_TOKEN);
   router.push("/login")
