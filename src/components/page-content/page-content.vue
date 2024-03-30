@@ -195,14 +195,24 @@ const handleDelClick = (id: string | number) => {
   systemStore.deletePageByIdAction(props.contentConfig.pageName, id)
 }
 
-// 新建用户功能
+// 新建用户功能 -- 弹出弹窗
 const handleNewUserClick = () => {
   emit("newClick")
 }
-// 编辑
+// 编辑 -- 弹出弹窗
 const handleEditBtnClick = (itemData: any) => {
   emit('editClick', itemData)
 }
+
+// 监听systemStore中的actions被执行
+systemStore.$onAction(({ name, after }) => {
+  if (name === 'editPageDataAction' || name === 'deletePageByIdAction' || name === 'newPageDataAction') {
+    // afer => 等待这些action成功执行后触发
+    after(() => {
+      currentPage.value = 1;// 表格页面重置到第一页
+    })
+  }
+})
 
 defineExpose({ fetchPageListData })
 </script>
