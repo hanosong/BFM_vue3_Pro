@@ -2,7 +2,7 @@
   <div class="content">
     <div class="header">
       <h3 class="title">用户列表</h3>
-      <el-button type="primary" @click="handleNewUserClick">新建用户</el-button>
+      <el-button v-if="isCreate" type="primary" @click="handleNewUserClick">新建用户</el-button>
     </div>
     <!-- 用户管理的表格 -->
     <div class="table">
@@ -81,10 +81,10 @@
           width="150px"
         >
          <template #default="rowScope">
-          <el-button size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
+          <el-button v-if="isUpdate" size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
             编辑
           </el-button>
-          <el-button  @click="handleDelClick(rowScope.row?.id)" size="small" icon="Delete" type="danger" text>
+          <el-button v-if="isDelete" @click="handleDelClick(rowScope.row?.id)" size="small" icon="Delete" type="danger" text>
             删除
           </el-button>
          </template>
@@ -97,7 +97,7 @@
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
       :page-sizes="[5, 10, 20, 30]"
-      small="small"
+      small
       layout="sizes, prev, pager, next, jumper,total"
       :total="usersTotalCount"
       @size-change="handleSizeChange"
@@ -112,9 +112,17 @@ import {ref} from 'vue'
 import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
 import {fromatUTC} from '@/utils/format';
+import {usePermissions} from '@/hooks/usePermissions'
+import { ElNotification } from 'element-plus'
 const emit = defineEmits(['newUserClick', "editClick"])
 const currentPage = ref(1);
 const pageSize = ref(10);
+
+// 用户按钮权限
+let isCreate = usePermissions(`users:create`);
+let isUpdate = usePermissions(`users:update`);
+let isDelete = usePermissions(`users:delete`);
+let isQuery = usePermissions(`users:query`);
 
 // 1.发起action，请求usersList的数据
 const systemStore = useSystemStore()
@@ -135,6 +143,14 @@ const handleCurrentChange = () => {
 
 // 请求表格数据
 function fetchUserListData(queryInfo: any = {}) {
+  if(!isQuery){
+    ElNotification({
+      title: 'Warning',
+      message: '很抱歉,您没有查看权限',
+      type: 'warning',
+    })
+    return
+  }
   const size = pageSize.value;
   const offset =  (currentPage.value - 1) * pageSize.value;
   const info = {size, offset, ...queryInfo};
