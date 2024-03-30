@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { postUsersListData, delUserById, newUserData, editUserData, postPageListData, deletePageById, newPageData, editPageData } from '@/service/main/system/system'
 import type { ISystemState } from './type';
+import useMainStore from '../main';
 
 
 const useSystemStore = defineStore("system", {
@@ -22,11 +23,15 @@ const useSystemStore = defineStore("system", {
       // 重新请求数据
       this.postUsersListAction({ offset: 0, size: 10 })
     },
+    // 点击新建用户
     async newUserDataAction(userInfo: any) {
       // 创建新用户
       const newRes = await newUserData(userInfo)
       // 刷新
       this.postUsersListAction({ offset: 0, size: 10 })
+      // 获取完整的数据
+      const mainStore = useMainStore();
+      mainStore.fetchEntireDataAction()
     },
     async editUserDataAction(id: number, userInfo: any) {
       // 编辑用户数据
@@ -46,17 +51,26 @@ const useSystemStore = defineStore("system", {
       const delRes = await deletePageById(pageName, id);
       // 刷新
       this.postPageListAction(pageName, { offset: 0, size: 10 })
+      // 获取完整的数据
+      const mainStore = useMainStore();
+      mainStore.fetchEntireDataAction()
     },
     // 新建
     async newPageDataAction(pageName: string, pageInfo: any) {
       const newPageRes = await newPageData(pageName, pageInfo);
       // 刷新
       this.postPageListAction(pageName, { offset: 0, size: 10 })
+      // 获取完整的数据
+      const mainStore = useMainStore();
+      mainStore.fetchEntireDataAction()
     },
     async editPageDataAction(pageName: string, id: number, queryInfo: any) {
       const editRes = await editPageData(pageName, id, queryInfo);
       // 刷新
       this.postPageListAction(pageName, { offset: 0, size: 10 })
+      // 获取完整的数据
+      const mainStore = useMainStore();
+      mainStore.fetchEntireDataAction()
     }
   }
 })
