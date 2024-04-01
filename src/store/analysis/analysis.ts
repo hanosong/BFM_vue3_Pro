@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia'
-import { getAmountList, getGoodsCategoryCount } from '@/service/main/analysis/analysis'
+import { getAmountList, getGoodsAddressSale, getGoodsCategoryCount, getGoodsCategoryFavor, getGoodsCategorySale } from '@/service/main/analysis/analysis'
 
 interface IAnalysisState {
   amountList: any[]
   goodsCategoryCount: any[]
+  goodsCategorySale: any[]
+  goodsCategoryFavor: any[]
+  goodsAddressSale: any[]
 }
 
 const useAnalysisStore = defineStore('analysis', {
@@ -11,6 +14,9 @@ const useAnalysisStore = defineStore('analysis', {
     return {
       amountList: [],
       goodsCategoryCount: [],
+      goodsCategorySale: [],
+      goodsCategoryFavor: [],
+      goodsAddressSale: [],
     }
   },
   actions: {
@@ -24,6 +30,18 @@ const useAnalysisStore = defineStore('analysis', {
       getGoodsCategoryCount().then(res => {
         this.goodsCategoryCount = res.data
       });
+
+      getGoodsCategorySale().then(res => {
+        this.goodsCategorySale = res.data
+      })
+
+      getGoodsCategoryFavor().then(res => {
+        this.goodsCategoryFavor = res.data
+      })
+
+      getGoodsAddressSale().then(res => {
+        this.goodsAddressSale = res.data
+      })
     }
   }
 })

@@ -9,8 +9,8 @@ import {ref, onMounted, defineProps, withDefaults} from 'vue'
 import * as echarts from 'echarts'
 import type {EChartsOption} from 'echarts' // option 的类型
 import { watchEffect } from 'vue';
-
-
+import ChinaDataJson from '../data/china.json' // 引入中国地图数据
+echarts.registerMap('china', ChinaDataJson as any) // 注册地图
 interface IProps {
   option: EChartsOption
 }

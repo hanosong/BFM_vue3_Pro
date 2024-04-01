@@ -8,15 +8,7 @@
 import { computed } from 'vue';
 import BaseEchart from './base-echart.vue';
 import type {EChartsOption} from 'echarts'
-
-interface IEchartValueType {
-  value: number
-  name: string
-}
-
-interface IProps {
-  pieData: IEchartValueType[]
-}
+import type { IProps } from '../types';
 
 const props = defineProps<IProps>()
 
