@@ -8,7 +8,11 @@
           :src="slotProps.row[slotProps.prop]"
           :preview-src-list="[slotProps.row[slotProps.prop]]"
           preview-teleported
+          lazy
         >
+        <template #placeholder>
+          <div class="image-slot">Loading<span class="dot">...</span></div>
+        </template>
         </el-image>
       </template>
     </page-content>
@@ -38,5 +42,19 @@ const { modalRef, handleNewClick, handleEditClick } = usePageModal()
 
 <style scoped>
 .goods {
+  .image-slot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: var(--el-fill-color-light);
+    color: var(--el-text-color-secondary);
+    font-size: 14px;
+  }
+  .dot {
+    animation: dot 2s infinite steps(3, start);
+    overflow: hidden;
+  }
 }
 </style>
