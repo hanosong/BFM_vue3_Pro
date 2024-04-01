@@ -7,6 +7,7 @@
           style="width: 50px; height: 50px"
           :src="slotProps.row[slotProps.prop]"
           :preview-src-list="[slotProps.row[slotProps.prop]]"
+          preview-teleported
         >
         </el-image>
       </template>
