@@ -12,14 +12,14 @@
         <!-- 使用配置的做法 -->
         <template v-for="item in contentConfig.propsList" :key="item.prop">
           <template v-if="item.type === 'timer'">
-            <el-table-column align="center" v-bind="item">
+            <el-table-column align="center" v-bind="item" show-overflow-tooltip>
               <template #default="rowScope">
                 {{ fromatUTC(rowScope.row[item.prop]) }}
               </template>
             </el-table-column>
           </template>
           <template v-else-if="item.type === 'handler'">
-            <el-table-column align="center" v-bind="item">
+            <el-table-column align="center" v-bind="item" show-overflow-tooltip>
               <template #default="rowScope">
                 <!-- 点击编辑的时候把整行的数据抛出去 -->
                 <el-button v-if="isUpdate" size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
@@ -34,7 +34,7 @@
 
           <template v-else-if="item.type === 'custom'">
             <!-- 定制化的内容使用具名插槽 -->
-            <el-table-column align="center" v-bind="item">
+            <el-table-column align="center" v-bind="item" show-overflow-tooltip>
               <template #default="rowScope">
                 <!-- v-bind="rowScope" => 把数据回传出去; prop => 传自己的东西出去(所有的属性都会给到rowScope)-->
                 <slot :name="item.slotName" v-bind="rowScope" :prop="item.prop"></slot>
@@ -43,7 +43,7 @@
           </template>
 
           <template v-else>
-            <el-table-column align="center" v-bind="item"></el-table-column>
+            <el-table-column align="center" v-bind="item" show-overflow-tooltip></el-table-column>
           </template>
         </template>
 
