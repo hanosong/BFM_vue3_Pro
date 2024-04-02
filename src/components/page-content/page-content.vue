@@ -174,7 +174,7 @@ const handleCurrentChange = () => {
 
 // 请求表格数据
 function fetchPageListData(formData: any = {}) {
-  if(!isQuery){
+  if(!isQuery && !(props.contentConfig.pageName === 'story')) {
     ElNotification({
       title: 'Warning',
       message: '很抱歉,您没有查看权限',
