@@ -57,4 +57,8 @@ const option = computed<EChartsOption>(() => {
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.line-echart{
+
+}
+</style>

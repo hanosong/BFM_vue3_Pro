@@ -18,6 +18,7 @@ const option = computed<EChartsOption>(() => {
       text: '支持鼠标滚动缩放'
     },
     grid: {
+      left: '20%',
       bottom: '5%'
     },
     xAxis: {

@@ -11,8 +11,11 @@ import BaseEchart from './base-echart.vue'
 import { convertData } from '../utils/convert-data'
 import type { IProps } from '../types'
 import type { EChartsOption } from 'echarts'
+import useLoginStore from '@/store/login/login'
 
 const props = defineProps<IProps>()
+
+const {isPc} = useLoginStore()
 
 const option = computed<EChartsOption>(() => {
   return {
@@ -31,10 +34,11 @@ const option = computed<EChartsOption>(() => {
       }
     },
     visualMap: {
+      show: isPc,
       min: 0,
       max: 60000,
-      left: 20,
-      bottom: 20,
+      left: 10,
+      bottom: 30,
       calculable: true,
       text: ['高', '低'],
       inRange: {
@@ -90,4 +94,8 @@ const option = computed<EChartsOption>(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.map-echart{
+  margin-bottom: 10px;
+}
+</style>

@@ -3,27 +3,27 @@
     <!-- 顶部的数字的数据展示 -->
     <el-row :gutter="10">
       <template v-for="item in amountList" :key="item.amount">
-        <el-col :span="6">
+        <el-col :span="6" :xs="24">
           <count-card v-bind="item"/>
         </el-col>
       </template>
     </el-row>
 
     <!-- 中间部分的e-charts -->
-    <el-row :gutter="10">
-      <el-col :span="6">
+    <el-row :gutter="10" class="middle-warpper">
+      <el-col :span="6" :xs="24">
         <chart-card :header="`分类商品数量饼状图`">
           <pie-chart :pie-data="showGoodsCategoryCount">
           </pie-chart>
         </chart-card>
       </el-col>
-      <el-col :span="11">
+      <el-col :span="11" :xs="24">
         <chart-card :header="`城市销量地图预览`">
           <!-- 地图 -->
           <map-chart :map-data="showGoodsAddressSale"></map-chart>
         </chart-card>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="7" :xs="24">
         <chart-card :header="`分类商品数量玫瑰图`">
           <rose-chart :rose-data="showGoodsCategoryCount"></rose-chart>
         </chart-card>
@@ -31,15 +31,15 @@
     </el-row>
 
     <!-- 底部的图表 -->
-    <el-row :gutter="10">
-      <el-col :span="12">
+    <el-row :gutter="10" class="bottom-warpper">
+      <el-col :span="12" :xs="24">
         <chart-card :header="`分类商品销量折线图`">
           <!-- <line-chart :labels="showGoodsCategorySale.labels" :values="showGoodsCategorySale.values"></line-chart> -->
           <!-- 也可以用v-bind -->
           <line-chart v-bind="showGoodsCategorySale"></line-chart>
         </chart-card>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="12" :xs="24">
         <chart-card :header="`分类商品收藏数量柱状图`">
           <bar-chart v-bind="showGoodsCategoryFavor"></bar-chart>
         </chart-card>
@@ -100,7 +100,17 @@ const showGoodsAddressSale = computed(() => {
 .dashboard {
   .el-row {
   margin-bottom: 10px;
-}
+  }
+
+  .middle-warpper {
+    display: flex;
+    align-items: center;
+  }
+
+  .bottom-warpper{
+    display: flex;
+    align-items: center;
+  }
 }
 
 </style>

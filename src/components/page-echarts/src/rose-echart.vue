@@ -1,6 +1,6 @@
 <template>
   <div class="rose-echart">
-    <base-echart :option="option"/>
+    <base-echart :option="option" :height="300"/>
   </div>
 </template>
 
@@ -9,9 +9,10 @@ import BaseEchart from '../index';
 import { computed } from 'vue';
 import type {EChartsOption} from 'echarts'
 import type {IProps} from '../types/index'
+import useLoginStore from '@/store/login/login';
 
 const props = defineProps<IProps>()
-
+const {isPc} = useLoginStore()
 const option = computed<EChartsOption>(() => {
   return {
     toolbox: {
@@ -31,7 +32,7 @@ const option = computed<EChartsOption>(() => {
         name: '访问来源',
         type: 'pie',
         // 内半径/外半径的大小
-        radius: [10, 160],
+        radius: isPc ? [10, 160] : [30, 120],
         // 设置区域的位置
         center: ['50%', '50%'],
         bottom: '-15%', // 图表位置

@@ -1,6 +1,6 @@
 <template>
   <div class="pie-echart">
-    <base-echart :option="option"/>
+    <base-echart :option="option" :height="400"/>
   </div>
 </template>
 
@@ -9,9 +9,10 @@ import { computed } from 'vue';
 import BaseEchart from './base-echart.vue';
 import type {EChartsOption} from 'echarts'
 import type { IProps } from '../types';
+import useLoginStore from '@/store/login/login';
 
 const props = defineProps<IProps>()
-
+const {isPc} = useLoginStore()
 
 // 由于传入的是普通数据，所以使用计算属性监听数据的变化
 const option = computed<EChartsOption>(() => {
@@ -29,7 +30,8 @@ const option = computed<EChartsOption>(() => {
       {
         name: '访问来源',
         type: 'pie',
-        radius: '50%',
+        radius: '70%',
+        top: '15%',
         bottom: '-10%', // 距离底部预留一定距离
         data: props.pieData,
         emphasis: {

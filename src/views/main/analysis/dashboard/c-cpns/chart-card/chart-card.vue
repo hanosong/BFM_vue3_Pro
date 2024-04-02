@@ -19,6 +19,6 @@ withDefaults(defineProps<IProps>(), {
 
 <style lang="less" scoped>
 .chart-card{
-
+  margin-bottom: 10px;
 }
 </style>

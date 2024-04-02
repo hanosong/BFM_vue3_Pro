@@ -63,6 +63,7 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .count-card {
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   padding: 0 20px;

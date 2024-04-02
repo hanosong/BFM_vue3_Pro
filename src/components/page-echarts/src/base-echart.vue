@@ -1,6 +1,6 @@
 <template>
   <div class="base-echart">
-   <div class="echart" ref="echartRef"> </div>
+   <div class="echart" ref="echartRef" :style="{height: height + 'px'}"> </div>
   </div>
 </template>
 
@@ -15,6 +15,7 @@ echarts.registerMap('china', ChinaDataJson as any) // 注册地图
 
 interface IProps {
   option: EChartsOption
+  height?: number
 }
 
 const props = defineProps<IProps>()
