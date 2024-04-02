@@ -42,6 +42,7 @@ import { ref, watch } from 'vue'
 import PaneAccount from "./pane-account.vue"
 import PanePhone from "./pane-phone.vue"
 import { localCache } from "@/utils/cache";
+import { ElMessage } from 'element-plus'
 // isRememberPassWord 为了解决报错暂时写死为 any
 const isRememberPassWord : any = ref<boolean>(localCache.getCache('isRememberPassWord') ?? true); // ref（）=> () 小括号可以传泛型
 const activeName = ref<string>("account");
@@ -60,6 +61,10 @@ const loginHandle = () => {
     // 账号登录
     accountRef.value?.loginAction(isRememberPassWord)
   }else{
+    ElMessage({
+    message: '功能开发中，暂不支持手机登录',
+    type: 'warning',
+  })
     // 手机登录
     console.log("用户进行手机登录")
   }
