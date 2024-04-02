@@ -22,7 +22,7 @@
             :size="30"
             src="https://p26-passport.byteacctimg.com/img/user-avatar/3607e2aee7ea5daabb69b042a513ce3f~40x40.awebp"
           />
-          <span class="name">{{ loginStore.userInfo.name }}</span>
+          <span v-if="isPc" class="name">{{ loginStore.userInfo.name }}</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
@@ -50,6 +50,8 @@ import {localCache} from "@/utils/cache";
 import {LOGIN_TOKEN} from "@/global/constants";
 import {useRouter} from "vue-router";
 import useLoginStore from "@/store/login/login";
+// 判断设备是不是移动端，如果是，则不用户的名字信息
+const {isPc} = useLoginStore()
 
 // 用户信息
 const loginStore = useLoginStore()

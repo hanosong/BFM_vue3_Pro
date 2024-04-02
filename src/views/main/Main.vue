@@ -34,12 +34,24 @@
 import mainMenu from "@/components/main-menu/main-menu.vue";
 import MainHeader from '@/components/main-header/main-header.vue'
 import {ref} from 'vue'
+import { onMounted } from "vue";
+import useLoginStore from "@/store/login/login";
 // 处理main-header中折叠的变化
 const isCollaps = ref(false)
 // 顶栏容器的折叠icon是否折叠
 const handleFoldChange = (isFold: boolean) => {
   isCollaps.value = isFold
 }
+
+// 判断是否移动设备
+const {isPc} = useLoginStore()
+onMounted(() => {
+  console.log("ispc???", isPc)
+  if (!isPc) {
+    // 页面宽度小于768px的情况下执行的代码
+    isCollaps.value = true
+  }
+})
 </script>
 
 <style lang="less" scoped>

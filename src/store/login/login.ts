@@ -4,8 +4,9 @@ import type { IAccount } from '@/types'
 import { localCache } from "@/utils/cache";
 import { mapMenuListToPermissions, mapMenusToRoutes } from "@/utils/map-menus"
 import router from "@/router";
-import { LOGIN_TOKEN } from "@/global/constants";
+import { LOGIN_TOKEN, IS_PC } from "@/global/constants";
 import useMainStore from "../main/main";
+import { judgeClient } from "@/utils/device";
 interface ILoginState {
   token: string
   userInfo: any /* {
@@ -15,6 +16,7 @@ interface ILoginState {
   } */
   userMenus: any
   permissions: string[]
+  isPc: boolean
 }
 const useLoginStore = defineStore('login', {
   // 指定state返回值的类型
@@ -23,6 +25,7 @@ const useLoginStore = defineStore('login', {
     userInfo: {},
     userMenus: [], // data：一级路由，data.children: 二级路由
     permissions: [], // 按钮权限
+    isPc: true,
   }),
   actions: {
     /**
@@ -41,6 +44,10 @@ const useLoginStore = defineStore('login', {
       const userInfo = userInfoRes.data;
       this.userInfo = userInfo
 
+      // 获取设备信息
+      const isPc = judgeClient()
+      this.isPc = isPc
+      localCache.setCache(IS_PC, JSON.stringify(isPc))
       // 根据角色信息请求用户的权限菜单 menus
       const userMenusRes = await getUserMenusByRoleId(this.userInfo.role.id) // 返回菜单的url，如果有二级菜单，则二级菜单的url在children属性中
       console.log("userMenusRes: ", userMenusRes)
@@ -70,11 +77,13 @@ const useLoginStore = defineStore('login', {
       const token = localCache.getCache(LOGIN_TOKEN);
       const userInfo = localCache.getCache('userInfo');
       const userMenus = localCache.getCache('userMenus');
-      if (token && userInfo && userMenus) {
+      const isPc = localCache.getCache('isPc');
+      if (token && userInfo && userMenus && isPc) {
         // 用户刷新的时候默认加载数据
         this.token = token;
         this.userInfo = userInfo;
         this.userMenus = userMenus;
+        this.isPc = JSON.parse(isPc);
 
         // 刷新的时候再次请求所有的角色roles和部门departments数据
         const mainStore = useMainStore();
