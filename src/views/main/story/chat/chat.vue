@@ -1,10 +1,12 @@
 <template>
   <div class="chat">
-    <h2>chat</h2>
+    <wang-editor></wang-editor>
   </div>
 </template>
 
-<script setup lang="ts" name="chat"></script>
+<script setup lang="ts" name="chat">
+import WangEditor from "@/base-ui/editor/index"
+</script>
 
 <style scoped>
 .chat {
