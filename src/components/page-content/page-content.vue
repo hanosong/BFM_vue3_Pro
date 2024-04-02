@@ -18,8 +18,8 @@
               </template>
             </el-table-column>
           </template>
-          <template v-else-if="item.type === 'handler'">
-            <el-table-column align="center" v-bind="item" show-overflow-tooltip>
+          <template v-else-if="item.type === 'handler' ">
+            <el-table-column align="center" v-bind="item" show-overflow-tooltip v-if="(isUpdate || isDelete)">
               <template #default="rowScope">
                 <!-- 点击编辑的时候把整行的数据抛出去 -->
                 <el-button v-if="isUpdate" size="small" icon="Edit" type="primary" text @click="handleEditBtnClick(rowScope.row)">
@@ -163,6 +163,7 @@ let isUpdate = usePermissions(`${props.contentConfig.pageName}:update`);
 let isDelete = usePermissions(`${props.contentConfig.pageName}:delete`);
 let isQuery = usePermissions(`${props.contentConfig.pageName}:query`);
 
+console.log(isUpdate, isDelete, "--------")
 // 1.发起action，请求usersList的数据
 const systemStore = useSystemStore()
 fetchPageListData()
