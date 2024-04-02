@@ -1,6 +1,8 @@
 <template>
   <div class="login-panel">
-    <h1 class="title"> 小哈后台管理 </h1>
+    <div class="title-wrapper">
+      <h1 class="title"> 小哈后台管理 </h1>
+    </div>
     <div class="tabs">
       <!-- tab页签 => 账号密码登录还是手机登录 -->
       <el-tabs type="border-card" :stretch="true" v-model="activeName">
@@ -69,12 +71,27 @@ const loginHandle = () => {
 .login-panel {
   width: 330px;
   margin-bottom: 150px;
-
+  .title-wrapper{
+    background-color: #fff;
+    filter: contrast(50); // 对比度拉大，白的更白黑的更黑
+  }
   .title {
+    color: black;
     text-align: center;
     margin-bottom: 15px;
+    letter-spacing: 0px;
+    animation: showTitle 3s forwards; // 动画结束之后使用最终的样式
   }
-
+  @keyframes showTitle {
+      from {
+        letter-spacing: -50px;
+        filter: blur(10px);
+      }
+      to{
+        letter-spacing: 10px;
+        filter: blur(0px);
+      }
+  }
   .label {
     display: flex;
     align-items: center;
