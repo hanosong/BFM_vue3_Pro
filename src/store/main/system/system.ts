@@ -43,7 +43,16 @@ const useSystemStore = defineStore("system", {
     async postPageListAction(pageName: string, queryInfo: any) {
       const pageListRes = await postPageListData(pageName, queryInfo);
       const { totalCount, list } = pageListRes.data;
-      this.pageList = list;
+      let _list = list;
+      if (pageName === 'department') {
+        const { entireDepartments } = useMainStore();
+        _list = list.map((departmentItem: any) => {
+          departmentItem.departmentLabel = entireDepartments.find(item => item.id === departmentItem.parentId).name
+          return departmentItem
+        })
+        console.log(_list, "_list")
+      }
+      this.pageList = _list;
       this.pageTotalCount = totalCount;
     },
     // 删除

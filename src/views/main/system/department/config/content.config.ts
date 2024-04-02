@@ -10,7 +10,7 @@ const contentConfig = {
     { type: 'index', label: '序号', width: '80px' },
     { type: 'normal', label: '部门名称', prop: 'name', width: '150px' },
     { type: 'normal', label: '部门领导', prop: 'leader', width: '150px' },
-    { type: 'normal', label: '上级部门', prop: 'parentId', width: '150px' },
+    { type: 'table', label: '上级部门', prop: 'departmentLabel', width: '150px' },
     // 如果要对表格数据进行定制化，比如在文字前面加样式啥的 => 新增一个类：custom + 具名插槽
     {
       type: 'custom',
@@ -22,7 +22,7 @@ const contentConfig = {
     {
       type: 'custom',
       label: '上级部门（定制）',
-      prop: 'parentId',
+      prop: 'departmentLabel',
       width: '150px',
       slotName: 'parent'
     },
