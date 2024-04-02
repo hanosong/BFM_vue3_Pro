@@ -6,13 +6,12 @@ const contentConfig = {
   },
   // 表格的字段
   propsList: [
+    { type: 'normal', label: '排序', prop: 'sort', width: '150px' },
     { type: 'index', label: '序号', width: '80px' },
     { label: '菜单名称', prop: 'name', width: '150px' },
     { type: 'normal', label: '菜单级别', prop: 'type', width: '150px' },
     { type: 'normal', label: '菜单url', prop: 'url', width: '150px' },
     { type: 'normal', label: '菜单图标', prop: 'icon', width: '200px' },
-    { type: 'normal', label: '排序', prop: 'sort', width: '150px' },
-    { type: 'normal', label: '权限', prop: 'permission', width: '150px' },
     // 日期相关
     { type: 'timer', label: '创建时间', prop: 'createAt' },
     { type: 'timer', label: '更新时间', prop: 'updateAt' },

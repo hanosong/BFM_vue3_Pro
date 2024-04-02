@@ -4,7 +4,7 @@
     <el-form :model="searchForm" ref="formRef" label-width="80px" size="large">
       <!-- 每个item首尾间距20 -->
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="8" :xs="24">
           <el-form-item label="用户名" prop="name">
             <el-input
               v-model="searchForm.name"
@@ -12,7 +12,7 @@
             />
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="8" :xs="24">
           <el-form-item label="真实姓名" prop="realname">
             <el-input
               v-model="searchForm.realname"
@@ -20,7 +20,7 @@
             />
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="8" :xs="24">
           <el-form-item label="手机号码" prop="cellphone">
             <el-input
               v-model="searchForm.cellphone"
@@ -29,7 +29,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="8">
+        <el-col :span="8" :xs="24">
           <el-form-item label="状态" prop="enable">
             <el-select
               v-model="searchForm.enable"
@@ -41,7 +41,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="8" :xs="24">
           <el-form-item label="创建时间" prop="createAt">
             <el-date-picker
               v-model="searchForm.createAt"

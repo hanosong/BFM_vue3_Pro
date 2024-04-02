@@ -5,14 +5,14 @@
       <!-- 每个item首尾间距20 -->
       <el-row :gutter="20">
         <template v-for="item in searchConfig.formItems" :key="item.prop">
-          <el-col :span="8">
+          <el-col :span="8" :xs="24">
             <el-form-item :label="item.label" :prop="item.prop">
               <template v-if="item.type === 'input'">
                 <el-input v-model="searchForm[item.prop]" :placeholder="item.placeholder" />
               </template>
               <template v-if="item.type === 'date-picker'">
                 <el-date-picker v-model="searchForm[item.prop]" type="daterange" range-separator="-"
-                  start-placeholder="开始时间" end-placeholder="结束时间" />
+                  start-placeholder="开始时间" end-placeholder="结束时间" size="small"/>
               </template>
               <template v-if="item.type === 'select'">
                 <el-select v-model="searchForm[item.prop]" :placeholder="item.placeholder" style="width: 100%">

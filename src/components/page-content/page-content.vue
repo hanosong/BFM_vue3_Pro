@@ -117,7 +117,7 @@
     <!-- 分页 -->
     <div class="pagination">
       <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :page-sizes="[5, 10, 20, 30]"
-        small layout="sizes, prev, pager, next, jumper,total" :total="pageTotalCount"
+        small :layout="layout" :total="pageTotalCount"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </div>
   </div>
@@ -131,6 +131,7 @@ import useLoginStore from '@/store/login/login'
 import { fromatUTC } from '@/utils/format';
 import { ElNotification } from 'element-plus'
 import {usePermissions} from "@/hooks/usePermissions";
+import { computed } from 'vue';
 interface IProps {
   contentConfig: {
     pageName: string
@@ -148,6 +149,13 @@ const props = defineProps<IProps>()
 const emit = defineEmits(['newClick', "editClick"])
 const currentPage = ref(1);
 const pageSize = ref(10);
+
+// 移动端表格配置
+const layout = computed(() => {
+  const {isPc} = useLoginStore()
+  return isPc ? `sizes, prev, pager, next, jumper,total` : `prev, next,`
+})
+
 
 // 0. 一进入组件,立即判断是否具有相关按钮权限
 let isCreate = usePermissions(`${props.contentConfig.pageName}:create`);

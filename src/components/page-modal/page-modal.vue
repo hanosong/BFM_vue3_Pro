@@ -3,7 +3,7 @@
     <el-dialog
       v-model="dialogVisible"
       :title="isNewRef ? modalConfig.header.newTitle : modalConfig.header.editTitle"
-      width="30%"
+      :width="isPc ? '30%' : '88%'"
       center
     >
       <div class="form">
@@ -50,6 +50,9 @@ import useMainStore from '@/store/main/main'
 import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
 import type { IModalProps } from './type'
+import useLoginStore from '@/store/login/login'
+
+const {isPc} = useLoginStore()
 // 0.定义props
 
 const props = defineProps<IModalProps>()
