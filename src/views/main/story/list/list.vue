@@ -1,10 +1,16 @@
 <template>
   <div class="list">
-    <h2>list</h2>
+    <page-content :content-config="contentConfig" ref="contentRef" />
   </div>
 </template>
 
-<script setup lang="ts" name="list"></script>
+<script setup lang="ts" name="list">
+import PageContent from "@/components/page-content/page-content.vue";
+import contentConfig from "./config/contentConfig.ts";
+
+
+
+</script>
 
 <style scoped>
 .list {
