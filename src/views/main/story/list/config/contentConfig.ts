@@ -9,9 +9,9 @@ const contentConfig = {
     // 1.selection 2.index
     { type: 'index', label: '序号', width: '80px' },
     { type: 'normal', label: '故事题目', prop: 'title', width: '150px' },
-    { type: 'normal', label: '我的故事', prop: 'content', width: '150px' },
+    { type: 'normal', label: '我的故事', prop: 'content', },
     // 日期相关
-    { type: 'timer', label: '创建时间', prop: 'createAt' },
+    { type: 'timer', label: '创建时间', prop: 'createAt', width: '150px' },
   ]
 }
 
