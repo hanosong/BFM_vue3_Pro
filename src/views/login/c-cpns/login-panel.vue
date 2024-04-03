@@ -77,15 +77,16 @@ const loginHandle = () => {
   width: 330px;
   margin-bottom: 150px;
   .title-wrapper{
-    background-color: #fff;
+    // background-color: #fff;
     filter: contrast(50); // 对比度拉大，白的更白黑的更黑
   }
   .title {
-    color: black;
+    color: #102d98;
     text-align: center;
     margin-bottom: 15px;
     letter-spacing: 0px;
     animation: showTitle 3s forwards; // 动画结束之后使用最终的样式
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   @keyframes showTitle {
       from {
@@ -111,12 +112,40 @@ const loginHandle = () => {
     margin-top: 12px;
     display: flex;
     justify-content: space-between;
+    padding: 10px;
+    background-color: #102d98;
+    border-image: linear-gradient(135deg, #5990ff, #2c7ddd, #093b86) 2 2;
+    background: linear-gradient(
+      135deg,
+      rgba(1, 72, 177, 0.54),
+      rgba(0, 51, 147, 0.54) 50%,
+      rgba(0, 13, 43, 0.54) 100%,
+      rgba(43, 77, 156, 0.54) 0
+    );
+    border-radius: 10px;
   }
 
   .login-btn {
     margin-top: 10px;
     width: 100%;
     // --el-button-size: 50px; // 覆盖样式
+  }
+
+  .tabs{
+    padding: 10px;
+    background: linear-gradient(
+      135deg,
+      rgba(1, 72, 177, 0.54),
+      rgba(0, 51, 147, 0.54) 50%,
+      rgba(0, 13, 43, 0.54) 100%,
+      rgba(43, 77, 156, 0.54) 0
+    );
+    border: 2px solid;
+    border-image: linear-gradient(135deg, #5990ff, #2c7ddd, #093b86) 2 2;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-radius: 4px;
+    box-sizing: border-box;
   }
 }
 </style>
