@@ -31,7 +31,9 @@
     </div>
     <div class="controls">
       <el-checkbox v-model="isRememberPassWord" label="记住密码"> </el-checkbox>
-      <el-link type="primary">忘记密码</el-link>
+      <el-tooltip content="请联系管理员" effect="dark" placement="top">
+        <el-link type="primary">忘记密码</el-link>
+      </el-tooltip>
     </div>
     <el-button type="primary" class="login-btn" @click="loginHandle">登录</el-button>
   </div>

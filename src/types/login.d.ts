@@ -3,3 +3,8 @@ export interface IAccount {
   // account: string,
   password: string | number
 }
+
+export interface IPhoneVerificationCode {
+  phoneNum: string | number,
+  verificationCode: string | number
+}

@@ -31,7 +31,7 @@ const accountRules: FormRules = {
   name: [
     { required: true, message: '必须输入帐号信息~', trigger: 'blur' },
     {
-      pattern: /^[a-z0-9]{6,20}$/, // ^: 开头，$: 结尾
+      pattern: /^[a-zA-Z0-9]{6,20}$/, // ^: 开头，$: 结尾
       message: '请检查账号是否符合6~20数字或字母规则~',
       trigger: 'blur'
     }
@@ -46,7 +46,7 @@ const accountRules: FormRules = {
   ]
 }
 const formRef = ref<InstanceType <typeof ElForm>>()
-  const loginStore = useLoginStore()
+const loginStore = useLoginStore()
 const loginAction = (isRemPwd: any) => {
   console.log(isRemPwd, "isRememberPwd")
   formRef.value?.validate(valid => {
