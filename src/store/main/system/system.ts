@@ -47,7 +47,7 @@ const useSystemStore = defineStore("system", {
       if (pageName === 'department') {
         const { entireDepartments } = useMainStore();
         _list = list.map((departmentItem: any) => {
-          departmentItem.departmentLabel = entireDepartments.find(item => item.id === departmentItem.parentId).name
+          departmentItem.departmentLabel = entireDepartments.find(item => item.id === (departmentItem.parentId || departmentItem.id)).name
           return departmentItem
         })
         console.log(_list, "_list")
