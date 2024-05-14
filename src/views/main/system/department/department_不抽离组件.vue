@@ -23,7 +23,7 @@ const handleResetClick = () => {
 }
 
 // 点击content，弹出弹窗
-const modalRef = ref<InstanceType <typeof PageModal>>()
+const modalRef = ref<InstanceType <typeof pageModal>>()
 const handleNewClick = () => {
    modalRef.value?.setModalVisible()
 };
