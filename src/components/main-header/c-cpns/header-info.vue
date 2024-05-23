@@ -22,7 +22,7 @@
             :size="30"
             src="https://p26-passport.byteacctimg.com/img/user-avatar/3607e2aee7ea5daabb69b042a513ce3f~40x40.awebp"
           />
-          <span v-if="isPc" class="name">{{ loginStore.userInfo.name }}</span>
+          <span v-if="isPc" class="name">{{ loginStore._userName }}</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>

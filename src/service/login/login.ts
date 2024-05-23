@@ -10,7 +10,11 @@ import { LOGIN_TOKEN } from "@/global/constants";
 export default function accountLoginRequest(account: IAccount) {
   return hyRequest.post({
     url: '/login',
-    data: account
+    // data: account
+    data: {
+      name:"coderwhy",
+      password:"123456",
+    }
   })
 }
 

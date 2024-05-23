@@ -14,6 +14,7 @@ interface ILoginState {
       id: number
     }
   } */
+  _userName: string
   userMenus: any
   permissions: string[]
   isPc: boolean
@@ -21,6 +22,7 @@ interface ILoginState {
 const useLoginStore = defineStore('login', {
   // 指定state返回值的类型
   state: (): ILoginState => ({
+    _userName: "",
     token: '',
     userInfo: {},
     userMenus: [], // data：一级路由，data.children: 二级路由
@@ -33,6 +35,7 @@ const useLoginStore = defineStore('login', {
      * @param account {name: string, password: string | number} 用户名 / 密码
      */
     async loginAccountAction(account: IAccount) {
+      this._userName = account.name;
       const loginRes = await accountLoginRequest(account)
       // 保存在pinia中的数据是在内存中的，还需要做持久化，防止用户刷新
       const id = loginRes.data.id;
